@@ -160,11 +160,15 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                         so.setOdgovor(listaProjekata);
                     }
                     break;
-//                case Operacije.VRATI_PROJEKTE_PRETRAGA:
-//                    String pretragaProjekti = (String) kz.getParametar();
-//                    LinkedList<Projekat> listaProjekataPretraga = ServerKontroler.getInstanca().vratiProjektePretraga(pretragaProjekti);
-//                    so.setOdgovor(listaProjekataPretraga);
-//                    break;
+                case Operacije.VRATI_PROJEKTE_PRETRAGA:
+                    Projekat pretragaProjekti = (Projekat) kz.getParametar();
+                    LinkedList<Projekat> listaProjekataPretraga = ServerKontroler.getInstanca().vratiProjektePretraga(pretragaProjekti);
+                    if(listaProjekataPretraga == null){
+                        throw new Exception("Doslo je do greske pri pretrazi projekata.");
+                    } else {
+                        so.setOdgovor(listaProjekataPretraga);
+                    }
+                    break;
 //                case Operacije.OBRISI_PROJEKAT:
 //                    Projekat projekat1 = (Projekat) kz.getParametar();
 //                    ServerKontroler.getInstanca().obrisiProjekat(projekat1);

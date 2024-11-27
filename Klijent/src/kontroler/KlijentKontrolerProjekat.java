@@ -34,7 +34,9 @@ public class KlijentKontrolerProjekat extends OpstiKlijentskiKontroler{
     }
 
     public LinkedList<Projekat> pronadjiPaVratiProjekte(String pretraga) throws Exception {
-        return (LinkedList<Projekat>) posaljiZahtev(Operacije.VRATI_PROJEKTE_PRETRAGA, pretraga);
+        Projekat projekat = new Projekat();
+        projekat.setVrednostZaPretragu(pretraga);
+        return (LinkedList<Projekat>) posaljiZahtev(Operacije.VRATI_PROJEKTE_PRETRAGA, projekat);
     }
 
     public void obrisiProjekat(Projekat projekat) throws Exception {

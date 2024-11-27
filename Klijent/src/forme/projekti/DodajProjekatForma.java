@@ -216,7 +216,7 @@ public class DodajProjekatForma extends javax.swing.JDialog {
                 int izbor = JOptionPane.showConfirmDialog(this, "Niste dodali nijednog zaposlenog. Da li zelite da sačuvate projekat bez zaposlenih?", "Čuvanje projekta", JOptionPane.YES_NO_OPTION);
 
                 if (izbor == JOptionPane.YES_OPTION) {
-                    Projekat projekat = new Projekat(0, naziv, datumPocetkaRealizacije, rukovodilac, prioritet, Stanje.Kreiran, listaZaposlenih);
+                    Projekat projekat = new Projekat(0, naziv, datumPocetkaRealizacije, rukovodilac, prioritet, Stanje.Kreiran, listaZaposlenih, null);
                     KlijentKontrolerProjekat.getInstanca().dodajProjekat(projekat);
                     
                     txtNazivProjekta.setText("");

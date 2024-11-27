@@ -18,6 +18,7 @@ import sistemske.operacije.login.SOLogin;
 import sistemske.operacije.login.organizacioneceline.SOVratiOrganizacioneCeline;
 import sistemske.operacije.login.radnamesta.SOVratiRadnaMesta;
 import sistemske.operacije.projekti.SODodajProjekat;
+import sistemske.operacije.projekti.SOVratiProjektePretraga;
 import sistemske.operacije.projekti.SOVratiSveProjekte;
 import sistemske.operacije.zaposleni.SODodajZaposlenog;
 import sistemske.operacije.zaposleni.SOIzmeniZaposlenog;
@@ -114,10 +115,12 @@ public class ServerKontroler {
         so.sOOpsteIzvrsenje(new Projekat());
         return so.getLista();
     }
-//
-//    public LinkedList<Projekat> vratiProjektePretraga(String pretragaProjekti) throws Exception {
-//        return DBBroker.getInstanca().vratiProjektePretraga(pretragaProjekti);
-//    }
+
+    public LinkedList<Projekat> vratiProjektePretraga(Projekat pretragaProjekti) throws Exception {
+        SOVratiProjektePretraga so = new SOVratiProjektePretraga();
+        so.sOOpsteIzvrsenje(pretragaProjekti);
+        return so.getLista();
+    }
 //
 //    public void obrisiProjekat(Projekat projekat1) throws Exception {
 //        DBBroker.getInstanca().obrisiProjekat(projekat1);

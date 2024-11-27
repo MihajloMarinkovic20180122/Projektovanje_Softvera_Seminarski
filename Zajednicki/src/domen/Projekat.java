@@ -22,11 +22,12 @@ public class Projekat implements OpstiDomenskiObjekat{
     private Prioritet prioritet;
     private Stanje stanje;
     private LinkedList<Zaposleni> zaposleni;
+    String vrednostZaPretragu;
 
     public Projekat() {
     }
 
-    public Projekat(int projekatId, String nazivProjekta, Date pocetakRealizacije, Zaposleni rukovodilac, Prioritet prioritet, Stanje stanje, LinkedList<Zaposleni> zaposleni) {
+    public Projekat(int projekatId, String nazivProjekta, Date pocetakRealizacije, Zaposleni rukovodilac, Prioritet prioritet, Stanje stanje, LinkedList<Zaposleni> zaposleni, String vrednostZaPretragu) {
         this.projekatId = projekatId;
         this.nazivProjekta = nazivProjekta;
         this.pocetakRealizacije = pocetakRealizacije;
@@ -34,6 +35,7 @@ public class Projekat implements OpstiDomenskiObjekat{
         this.prioritet = prioritet;
         this.stanje = stanje;
         this.zaposleni = zaposleni;
+        this.vrednostZaPretragu = vrednostZaPretragu;
     }
 
     public LinkedList<Zaposleni> getZaposleni() {
@@ -90,6 +92,14 @@ public class Projekat implements OpstiDomenskiObjekat{
 
     public void setStanje(Stanje stanje) {
         this.stanje = stanje;
+    }
+
+    public String getVrednostZaPretragu() {
+        return vrednostZaPretragu;
+    }
+
+    public void setVrednostZaPretragu(String vrednostZaPretragu) {
+        this.vrednostZaPretragu = vrednostZaPretragu;
     }
 
     @Override
@@ -162,7 +172,12 @@ public class Projekat implements OpstiDomenskiObjekat{
 
     @Override
     public String uslovZaPretragu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "WHERE p.nazivProjekta LIKE'%" + this.vrednostZaPretragu +
+               "%' OR z.ime LIKE'%" + this.vrednostZaPretragu +
+               "%' OR z.prezime LIKE'%" + this.vrednostZaPretragu +
+               "%' OR p.prioritet LIKE'%" + this.vrednostZaPretragu +
+               "%' OR p.stanje LIKE'%" + this.vrednostZaPretragu +
+               "%'";
     }
 
     @Override
