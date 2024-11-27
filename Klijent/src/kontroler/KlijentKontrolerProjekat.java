@@ -42,6 +42,10 @@ public class KlijentKontrolerProjekat extends OpstiKlijentskiKontroler{
     public void obrisiProjekat(Projekat projekat) throws Exception {
         posaljiZahtev(Operacije.OBRISI_PROJEKAT, projekat);
     }
+
+    public Projekat ucitajProjekat(Projekat odabraniProjekat) throws Exception {
+        return (Projekat) posaljiZahtev(Operacije.UCITAJ_PROJEKAT, odabraniProjekat);
+    }
     
     
     

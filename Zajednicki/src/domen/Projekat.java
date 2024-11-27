@@ -167,7 +167,7 @@ public class Projekat implements OpstiDomenskiObjekat{
 
     @Override
     public String uslov() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "WHERE p.projekatId = "+projekatId;
     }
 
     @Override

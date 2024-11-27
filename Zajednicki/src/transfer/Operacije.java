@@ -22,10 +22,11 @@ public interface Operacije {
     public static final int IZMENI_PODATKE_ZAPOSLENOG = 10;
     public static final int DODAJ_PROJEKAT = 11;
     public static final int VRATI_PROJEKTE = 12;
-    public static final int VRATI_PROJEKTE_PRETRAGA = 13;
-    public static final int OBRISI_PROJEKAT = 14;
-    public static final int DODAJ_ANGAZOVANJE = 15;
-    public static final int VRATI_ANGAZOVANJA = 16;
+    public static final int UCITAJ_PROJEKAT = 13;
+    public static final int VRATI_PROJEKTE_PRETRAGA = 14;
+    public static final int OBRISI_PROJEKAT = 15;
+    public static final int DODAJ_ANGAZOVANJE = 16;
+    public static final int VRATI_ANGAZOVANJA = 17;
 
 
 

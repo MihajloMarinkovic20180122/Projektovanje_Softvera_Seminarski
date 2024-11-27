@@ -8,6 +8,7 @@ import domen.Prioritet;
 import domen.Projekat;
 import domen.Zaposleni;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,7 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
      */
     ModelTabeleProjekti mtp;
     ModelTabeleZaposleni mtz;
+    Projekat odabraniProjekat;
     public ObrisiProjekatForma(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         try {
@@ -96,6 +98,11 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblProjekti.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProjektiMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblProjekti);
 
         btnPronadjiProjekat.setText("Pronađi");
@@ -335,6 +342,28 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnObrisiZaposlenogActionPerformed
 
+    private void tblProjektiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProjektiMouseClicked
+        try{
+            int red = tblProjekti.getSelectedRow();
+            if(red == -1){
+
+            } else {
+                ModelTabeleProjekti mtp = (ModelTabeleProjekti) tblProjekti.getModel();
+                odabraniProjekat = mtp.vratiOdabraniProjekat(red);
+                Projekat ucitaniProjekat = KlijentKontrolerProjekat.getInstanca().ucitajProjekat(odabraniProjekat);
+                popuniPodatkeUcitanogProjekta(ucitaniProjekat);
+                //ModelTabeleZaposleni mtz = (ModelTabeleZaposleni) tblZaposleni.getModel();
+                //odabraniZaposleni = mtz.vratiOdabranogZaposlenog(red);
+                //Zaposleni ucitaniZaposleni = KlijentKontrolerZaposleni.getInstanca().ucitajZaposlenog(odabraniZaposleni);
+    //            popuniPodatkeUcitanogZaposlenog(ucitaniZaposleni);
+    //            btnIzmeniZaposlenog.setEnabled(true);
+    //            btnObrisiZaposlenog.setEnabled(true);
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_tblProjektiMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -398,5 +427,16 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
         for (Zaposleni zaposleni : listaZaposlenih) {
             cmbZaposleni.addItem(zaposleni);
         }
+    }
+
+    private void popuniPodatkeUcitanogProjekta(Projekat ucitaniProjekat) {
+        txtNazivProjekta.setText(ucitaniProjekat.getNazivProjekta());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
+        txtPocetakRealizacijeProjekta.setText(sdf.format(ucitaniProjekat.getPocetakRealizacije()));
+        cmbRukovodilacProjekta.setSelectedItem(ucitaniProjekat.getRukovodilac());
+        cmbPrioritetProjekta.setSelectedItem(ucitaniProjekat.getPrioritet());
+        ModelTabeleZaposleni mtz =  (ModelTabeleZaposleni) tblZaposleni.getModel();
+        mtz.setListaZaposlenih(ucitaniProjekat.getZaposleni());
+    
     }
 }

@@ -169,6 +169,15 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                         so.setOdgovor(listaProjekataPretraga);
                     }
                     break;
+                case Operacije.UCITAJ_PROJEKAT:
+                    Projekat projekatZaUcitavanje = (Projekat) kz.getParametar();
+                    Projekat ucitaniProjekat = ServerKontroler.getInstanca().ucitajProjekat(projekatZaUcitavanje);
+                    if(ucitaniProjekat == null){
+                        throw new Exception("Doslo je do greske pri ucitavanju odabranog projekta.");
+                    } else {
+                        so.setOdgovor(ucitaniProjekat);
+                    }
+                    break;
 //                case Operacije.OBRISI_PROJEKAT:
 //                    Projekat projekat1 = (Projekat) kz.getParametar();
 //                    ServerKontroler.getInstanca().obrisiProjekat(projekat1);
