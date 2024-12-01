@@ -5,6 +5,7 @@
 package sistemske.operacije.zaposleni;
 
 import domen.OpstiDomenskiObjekat;
+import domen.RadnoMesto;
 import domen.Zaposleni;
 import java.util.LinkedList;
 import sistemske.operacije.SOOpsteIzvrsenje;
@@ -40,7 +41,13 @@ public class SODodajZaposlenog extends SOOpsteIzvrsenje{
 
     @Override
     public boolean izvrsiSO(OpstiDomenskiObjekat odo) throws Exception {
-        return dbb.zapamti(odo);
+        Zaposleni zaposleniZaDodati = (Zaposleni) odo;
+        boolean dodatZaposleni = dbb.zapamti(odo);
+        RadnoMesto rm = zaposleniZaDodati.getRadnoMesto();
+        rm.setBrojZaposlenih(rm.getBrojZaposlenih() + 1);
+        dbb.izmeni(rm);
+        
+        return dodatZaposleni;
     }
     
 }

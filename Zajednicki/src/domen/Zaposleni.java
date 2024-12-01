@@ -199,6 +199,7 @@ public class Zaposleni implements OpstiDomenskiObjekat{
             RadnoMesto rm = new RadnoMesto();
             rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
             rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
+            rm.setBrojZaposlenih(rs.getInt("brojZaposlenih"));
             z.setRadnoMesto(rm);
 
             listaZaposlenih.add(z);

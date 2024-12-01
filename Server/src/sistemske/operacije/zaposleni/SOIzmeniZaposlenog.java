@@ -5,6 +5,7 @@
 package sistemske.operacije.zaposleni;
 
 import domen.OpstiDomenskiObjekat;
+import domen.RadnoMesto;
 import domen.Zaposleni;
 import java.util.LinkedList;
 import sistemske.operacije.SOOpsteIzvrsenje;
@@ -39,7 +40,25 @@ public class SOIzmeniZaposlenog extends SOOpsteIzvrsenje{
 
     @Override
     public boolean izvrsiSO(OpstiDomenskiObjekat odo) throws Exception {
-        return dbb.izmeni(odo);
+        LinkedList<OpstiDomenskiObjekat> zaposleniPreIzmene = dbb.ucitaj(odo);
+        Zaposleni zaposleniPodaciPreIzmene = (Zaposleni) zaposleniPreIzmene.get(0);
+        Zaposleni zaposleniZaIzmenu = (Zaposleni) odo;
+        boolean izmenjenZaposleni = dbb.izmeni(odo);
+        
+        RadnoMesto rmPre = zaposleniPodaciPreIzmene.getRadnoMesto();
+        RadnoMesto rm = zaposleniZaIzmenu.getRadnoMesto();
+        
+        if(!rmPre.equals(rm)){
+            rmPre.setBrojZaposlenih(rmPre.getBrojZaposlenih() - 1);
+            dbb.izmeni(rmPre);
+
+            rm.setBrojZaposlenih(rm.getBrojZaposlenih() + 1);
+            dbb.izmeni(rm);
+        } else {
+            
+        }
+        
+        return izmenjenZaposleni;
     }
     
 }

@@ -89,7 +89,7 @@ public class RadnoMesto implements OpstiDomenskiObjekat{
 
     @Override
     public String vratiPrimarniKljuc() {
-        return "organizacionaCelinaId=" + organizacionaCelina.getOrganizacionaCelinaId() + " AND radnoMestoId=" + radnoMestoId;
+        return "radnoMestoId=" + radnoMestoId;
     }
 
     @Override
@@ -109,7 +109,7 @@ public class RadnoMesto implements OpstiDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "brojZaposlenih=" + brojZaposlenih;
     }
 
     @Override
