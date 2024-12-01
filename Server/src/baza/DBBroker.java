@@ -71,7 +71,7 @@ public class DBBroker {
     public LinkedList<OpstiDomenskiObjekat> vratiSve(OpstiDomenskiObjekat odo) throws SQLException {
         //throw new Exception("greska.");
         String upit = "SELECT * FROM " + odo.vratiNazivTabele() + " " + odo.alijas()
-                + " " + odo.join() + " ";
+                + " " + odo.join() + " ORDER BY 1";
         PreparedStatement ps = konekcija.prepareStatement(upit);
         ResultSet rs = ps.executeQuery();
         return (LinkedList<OpstiDomenskiObjekat>) odo.vratiSve(rs);
@@ -80,7 +80,7 @@ public class DBBroker {
     public LinkedList<OpstiDomenskiObjekat> ucitaj(OpstiDomenskiObjekat odo) throws SQLException {
         //throw new Exception("greska.");
         String upit = "SELECT * FROM " + odo.vratiNazivTabele() + " " + odo.alijas()
-                + " " + odo.join() + " " + odo.uslov();
+                + " " + odo.join() + " " + odo.uslov() + " ORDER BY 1";
         System.out.println(upit);
         PreparedStatement ps = konekcija.prepareStatement(upit);
         ResultSet rs = ps.executeQuery();
@@ -106,7 +106,7 @@ public class DBBroker {
     
     public LinkedList<OpstiDomenskiObjekat> vratiZaVrednost(OpstiDomenskiObjekat objekat) throws SQLException {
         String upit = "SELECT * FROM " + objekat.vratiNazivTabele() + " " + objekat.alijas()
-                + " " + objekat.join() + " " + objekat.uslovZaPretragu();
+                + " " + objekat.join() + " " + objekat.uslovZaPretragu() + " ORDER BY 1";
         System.out.println(upit);
         PreparedStatement ps = konekcija.prepareStatement(upit);
         ResultSet rs = ps.executeQuery(upit);
@@ -203,409 +203,409 @@ public class DBBroker {
         return listaAngazovanja;
     }
     
-    public Angazovanje vratiAngazovanjeZaProjekat(Projekat izmenjeniProjekat) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+//    public Angazovanje vratiAngazovanjeZaProjekat(Projekat izmenjeniProjekat) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
     
     
-    public Administrator login(Administrator ad) throws Exception {
-        LinkedList<Administrator> listaAdministratora = new LinkedList<>();
-        String upit = "SELECT * FROM administrator";
+//    public Administrator login(Administrator ad) throws Exception {
+//        LinkedList<Administrator> listaAdministratora = new LinkedList<>();
+//        String upit = "SELECT * FROM administrator";
+//
+//        PreparedStatement ps = konekcija.prepareStatement(upit);
+//        ResultSet rs = ps.executeQuery();
+//
+//        while (rs.next()) {
+//            int administratorId = rs.getInt("administratorId");
+//            String email = rs.getString("email");
+//            String lozinka = rs.getString("lozinka");
+//            Administrator administrator = new Administrator(administratorId, email, lozinka);
+//            listaAdministratora.add(administrator);
+//        }
+//
+//        for (Administrator administrator : listaAdministratora) {
+//            if (administrator.getEmail().equals(ad.getEmail()) && administrator.getLozinka().equals(ad.getLozinka())) {
+//                return ad;
+//            }
+//        }
+//        throw new Exception("Pogresni kredencijali. Ponovite unos.");
+//
+//    }
 
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        ResultSet rs = ps.executeQuery();
+//    public LinkedList<OrganizacionaCelina> vratiOrganizacioneCeline() throws Exception {
+//        LinkedList<OrganizacionaCelina> listaOrganizacionihCelina = new LinkedList<>();
+//        String upit = "SELECT * FROM organizacionacelina";
+//
+//        PreparedStatement ps = konekcija.prepareStatement(upit);
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {
+//            int organizacionaCelinaId = rs.getInt("organizacionaCelinaId");
+//            String nazivOrganizacioneCeline = rs.getString("nazivOrganizacioneCeline");
+//
+//            OrganizacionaCelina organizacionaCelina = new OrganizacionaCelina(organizacionaCelinaId, nazivOrganizacioneCeline);
+//            listaOrganizacionihCelina.add(organizacionaCelina);
+//        }
+//
+//        return listaOrganizacionihCelina;
+//    }
 
-        while (rs.next()) {
-            int administratorId = rs.getInt("administratorId");
-            String email = rs.getString("email");
-            String lozinka = rs.getString("lozinka");
-            Administrator administrator = new Administrator(administratorId, email, lozinka);
-            listaAdministratora.add(administrator);
-        }
+//    public LinkedList<RadnoMesto> vratiRadnaMesta(int organizacionaCelinaId) throws Exception {
+//        LinkedList<RadnoMesto> listaRadnihMesta = new LinkedList<>();
+//        String upit = "SELECT * FROM radnomesto WHERE organizacionaCelinaId = ?";
+//
+//        PreparedStatement ps = konekcija.prepareStatement(upit);
+//        ps.setInt(1, organizacionaCelinaId);
+//
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {
+//
+//            OrganizacionaCelina organizacionaCelina = new OrganizacionaCelina();
+//            int organizacionaCelinaRM = rs.getInt("organizacionaCelinaId");
+//            organizacionaCelina.setOrganizacionaCelinaId(organizacionaCelinaRM);
+//
+//            int radnoMestoId = rs.getInt("radnoMestoId");
+//            String nazivRadnogMesta = rs.getString("nazivRadnogMesta");
+//            int brojZaposlenih = rs.getInt("brojZaposlenih");
+//
+//            RadnoMesto radnoMesto = new RadnoMesto(organizacionaCelina, radnoMestoId, nazivRadnogMesta, brojZaposlenih);
+//            listaRadnihMesta.add(radnoMesto);
+//        }
+//
+//        return listaRadnihMesta;
+//    }
 
-        for (Administrator administrator : listaAdministratora) {
-            if (administrator.getEmail().equals(ad.getEmail()) && administrator.getLozinka().equals(ad.getLozinka())) {
-                return ad;
-            }
-        }
-        throw new Exception("Pogresni kredencijali. Ponovite unos.");
+//    public void dodajZaposlenog(Zaposleni zaposleni) throws Exception {
+//        try {
+//            String upit = "INSERT INTO zaposleni(ime, prezime, email, datumZaposlenja, organizacionaCelinaId, radnoMestoId) values (?, ?, ?, ?, ?, ?)";
+//            PreparedStatement ps = konekcija.prepareStatement(upit);
+//            ps.setString(1, zaposleni.getIme());
+//            ps.setString(2, zaposleni.getPrezime());
+//            ps.setString(3, zaposleni.getEmail());
+//            ps.setDate(4, new java.sql.Date(zaposleni.getDatumZaposlenja().getTime()));
+//            ps.setInt(5, zaposleni.getOrganizacionaCelina().getOrganizacionaCelinaId());
+//            ps.setInt(6, zaposleni.getRadnoMesto().getRadnoMestoId());
+//
+//            ps.execute();
+//
+//            konekcija.commit();
+//        } catch (Exception ex) {
+//            konekcija.rollback();
+//            throw new Exception("Sistem ne moze da doda zaposlenog.");
+//        }
+//    }
 
-    }
+//    public LinkedList<Zaposleni> vratiZaposlene() throws Exception {
+//        LinkedList<Zaposleni> listaZaposlenih = new LinkedList<>();
+//        String upit = "SELECT * FROM zaposleni z "
+//                + "JOIN organizacionaCelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
+//                + "JOIN radnoMesto rm ON z.radnoMestoId = rm.radnoMestoId";
+//        PreparedStatement ps = konekcija.prepareStatement(upit);
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {
+//            Zaposleni z = new Zaposleni();
+//            z.setZaposleniId(rs.getInt("zaposleniId"));
+//            z.setIme(rs.getString("ime"));
+//            z.setPrezime(rs.getString("prezime"));
+//            z.setEmail(rs.getString("email"));
+//            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
+//
+//            OrganizacionaCelina oc = new OrganizacionaCelina();
+//            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
+//            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
+//            z.setOrganizacionaCelina(oc);
+//
+//            RadnoMesto rm = new RadnoMesto();
+//            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
+//            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
+//            z.setRadnoMesto(rm);
+//
+//            listaZaposlenih.add(z);
+//        }
+//        return listaZaposlenih;
+//    }
 
-    public LinkedList<OrganizacionaCelina> vratiOrganizacioneCeline() throws Exception {
-        LinkedList<OrganizacionaCelina> listaOrganizacionihCelina = new LinkedList<>();
-        String upit = "SELECT * FROM organizacionacelina";
+//    public void dodajProjekat(Projekat projekat) throws Exception {
+//        try {
+//            String upit = "INSERT INTO projekat(nazivProjekta, pocetakRealizacije, rukovodilacId, prioritet, stanje) values (?, ?, ?, ?, ?)";
+//            PreparedStatement ps = konekcija.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
+//            ps.setString(1, projekat.getNazivProjekta());
+//            ps.setDate(2, new java.sql.Date(projekat.getPocetakRealizacije().getTime()));
+//            ps.setInt(3, projekat.getRukovodilac().getZaposleniId());
+//            ps.setString(4, projekat.getPrioritet().toString());
+//            ps.setString(5, projekat.getStanje().toString());
+//
+//            ps.executeUpdate();
+//            
+//            ResultSet tableKeys = ps.getGeneratedKeys();
+//            tableKeys.next();
+//            int projekatId = tableKeys.getInt(1);
+//            
+//            projekat.setProjekatId(projekatId);
+//            
+//            dodajAngazovenje(projekat);
+//            
+//            konekcija.commit();
+//        } catch (SQLException ex) {
+//            konekcija.rollback();
+//            throw ex;
+//        }
+//
+//    }
 
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            int organizacionaCelinaId = rs.getInt("organizacionaCelinaId");
-            String nazivOrganizacioneCeline = rs.getString("nazivOrganizacioneCeline");
+//    public LinkedList<Zaposleni> vratiZaposlenePretraga(String pretragaZaposleni) throws Exception {
+//        LinkedList<Zaposleni> vratiZaposlenePretraga = new LinkedList<>();
+//        String upit = "SELECT * FROM zaposleni z "
+//                + "JOIN organizacionaCelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
+//                + "JOIN radnoMesto rm ON z.radnoMestoId = rm.radnoMestoId "
+//                + "WHERE z.ime LIKE ? OR z.prezime LIKE ? OR z.email LIKE ?";
+//        PreparedStatement ps = konekcija.prepareStatement(upit);
+//        String pojamZaPretragu = '%' + pretragaZaposleni + '%';
+//        ps.setString(1, pojamZaPretragu);
+//        ps.setString(2, pojamZaPretragu);
+//        ps.setString(3, pojamZaPretragu);
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {
+//            Zaposleni z = new Zaposleni();
+//            z.setZaposleniId(rs.getInt("zaposleniId"));
+//            z.setIme(rs.getString("ime"));
+//            z.setPrezime(rs.getString("prezime"));
+//            z.setEmail(rs.getString("email"));
+//            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
+//
+//            OrganizacionaCelina oc = new OrganizacionaCelina();
+//            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
+//            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
+//            z.setOrganizacionaCelina(oc);
+//
+//            RadnoMesto rm = new RadnoMesto();
+//            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
+//            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
+//            z.setRadnoMesto(rm);
+//
+//            vratiZaposlenePretraga.add(z);
+//        }
+//
+//        return vratiZaposlenePretraga;
+//
+//    }
 
-            OrganizacionaCelina organizacionaCelina = new OrganizacionaCelina(organizacionaCelinaId, nazivOrganizacioneCeline);
-            listaOrganizacionihCelina.add(organizacionaCelina);
-        }
+//    public void obrisiZaposlenog(Zaposleni zaposleni1) throws Exception {
+//        try {
+//            String upit = "DELETE FROM zaposleni WHERE zaposleniId = ?";
+//            PreparedStatement ps = konekcija.prepareStatement(upit);
+//            ps.setInt(1, zaposleni1.getZaposleniId());
+//
+//            ps.execute();
+//            konekcija.commit();
+//        } catch (Exception ex) {
+//            konekcija.rollback();
+//            throw new Exception("Doslo je do greske prilikom brisanja zaposlenog: " + zaposleni1);
+//        }
+//
+//    }
 
-        return listaOrganizacionihCelina;
-    }
+//    public LinkedList<Projekat> vratiProjekte() throws Exception {
+//        LinkedList<Projekat> listaProjekata = new LinkedList<>();
+//
+//        String upit = "SELECT * FROM projekat p "
+//                + "JOIN zaposleni z ON p.rukovodilacId = z.zaposleniID "
+//                + "JOIN organizacionacelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
+//                + "JOIN radnomesto rm ON z.radnoMestoId = rm.radnoMestoId";
+//        PreparedStatement ps = konekcija.prepareStatement(upit);
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {
+//
+//            Projekat p = new Projekat();
+//            p.setProjekatId(rs.getInt("projekatId"));
+//            p.setNazivProjekta(rs.getString("nazivProjekta"));
+//            p.setPocetakRealizacije(rs.getDate("pocetakRealizacije"));
+//            p.setPrioritet(Prioritet.valueOf(rs.getString("prioritet")));
+//            p.setStanje(Stanje.valueOf(rs.getString("stanje")));
+//
+//            Zaposleni z = new Zaposleni();
+//            z.setZaposleniId(rs.getInt("zaposleniId"));
+//            z.setIme(rs.getString("ime"));
+//            z.setPrezime(rs.getString("prezime"));
+//            z.setEmail(rs.getString("email"));
+//            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
+//
+//            OrganizacionaCelina oc = new OrganizacionaCelina();
+//            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
+//            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
+//            z.setOrganizacionaCelina(oc);
+//
+//            RadnoMesto rm = new RadnoMesto();
+//            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
+//            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
+//            z.setRadnoMesto(rm);
+//
+//            p.setRukovodilac(z);
+//
+//            listaProjekata.add(p);
+//
+//        }
+//
+//        return listaProjekata;
+//
+//    }
 
-    public LinkedList<RadnoMesto> vratiRadnaMesta(int organizacionaCelinaId) throws Exception {
-        LinkedList<RadnoMesto> listaRadnihMesta = new LinkedList<>();
-        String upit = "SELECT * FROM radnomesto WHERE organizacionaCelinaId = ?";
-
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        ps.setInt(1, organizacionaCelinaId);
-
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-
-            OrganizacionaCelina organizacionaCelina = new OrganizacionaCelina();
-            int organizacionaCelinaRM = rs.getInt("organizacionaCelinaId");
-            organizacionaCelina.setOrganizacionaCelinaId(organizacionaCelinaRM);
-
-            int radnoMestoId = rs.getInt("radnoMestoId");
-            String nazivRadnogMesta = rs.getString("nazivRadnogMesta");
-            int brojZaposlenih = rs.getInt("brojZaposlenih");
-
-            RadnoMesto radnoMesto = new RadnoMesto(organizacionaCelina, radnoMestoId, nazivRadnogMesta, brojZaposlenih);
-            listaRadnihMesta.add(radnoMesto);
-        }
-
-        return listaRadnihMesta;
-    }
-
-    public void dodajZaposlenog(Zaposleni zaposleni) throws Exception {
-        try {
-            String upit = "INSERT INTO zaposleni(ime, prezime, email, datumZaposlenja, organizacionaCelinaId, radnoMestoId) values (?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = konekcija.prepareStatement(upit);
-            ps.setString(1, zaposleni.getIme());
-            ps.setString(2, zaposleni.getPrezime());
-            ps.setString(3, zaposleni.getEmail());
-            ps.setDate(4, new java.sql.Date(zaposleni.getDatumZaposlenja().getTime()));
-            ps.setInt(5, zaposleni.getOrganizacionaCelina().getOrganizacionaCelinaId());
-            ps.setInt(6, zaposleni.getRadnoMesto().getRadnoMestoId());
-
-            ps.execute();
-
-            konekcija.commit();
-        } catch (Exception ex) {
-            konekcija.rollback();
-            throw new Exception("Sistem ne moze da doda zaposlenog.");
-        }
-    }
-
-    public LinkedList<Zaposleni> vratiZaposlene() throws Exception {
-        LinkedList<Zaposleni> listaZaposlenih = new LinkedList<>();
-        String upit = "SELECT * FROM zaposleni z "
-                + "JOIN organizacionaCelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
-                + "JOIN radnoMesto rm ON z.radnoMestoId = rm.radnoMestoId";
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Zaposleni z = new Zaposleni();
-            z.setZaposleniId(rs.getInt("zaposleniId"));
-            z.setIme(rs.getString("ime"));
-            z.setPrezime(rs.getString("prezime"));
-            z.setEmail(rs.getString("email"));
-            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
-
-            OrganizacionaCelina oc = new OrganizacionaCelina();
-            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
-            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
-            z.setOrganizacionaCelina(oc);
-
-            RadnoMesto rm = new RadnoMesto();
-            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
-            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
-            z.setRadnoMesto(rm);
-
-            listaZaposlenih.add(z);
-        }
-        return listaZaposlenih;
-    }
-
-    public void dodajProjekat(Projekat projekat) throws Exception {
-        try {
-            String upit = "INSERT INTO projekat(nazivProjekta, pocetakRealizacije, rukovodilacId, prioritet, stanje) values (?, ?, ?, ?, ?)";
-            PreparedStatement ps = konekcija.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, projekat.getNazivProjekta());
-            ps.setDate(2, new java.sql.Date(projekat.getPocetakRealizacije().getTime()));
-            ps.setInt(3, projekat.getRukovodilac().getZaposleniId());
-            ps.setString(4, projekat.getPrioritet().toString());
-            ps.setString(5, projekat.getStanje().toString());
-
-            ps.executeUpdate();
-            
-            ResultSet tableKeys = ps.getGeneratedKeys();
-            tableKeys.next();
-            int projekatId = tableKeys.getInt(1);
-            
-            projekat.setProjekatId(projekatId);
-            
-            dodajAngazovenje(projekat);
-            
-            konekcija.commit();
-        } catch (SQLException ex) {
-            konekcija.rollback();
-            throw ex;
-        }
-
-    }
-
-    public LinkedList<Zaposleni> vratiZaposlenePretraga(String pretragaZaposleni) throws Exception {
-        LinkedList<Zaposleni> vratiZaposlenePretraga = new LinkedList<>();
-        String upit = "SELECT * FROM zaposleni z "
-                + "JOIN organizacionaCelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
-                + "JOIN radnoMesto rm ON z.radnoMestoId = rm.radnoMestoId "
-                + "WHERE z.ime LIKE ? OR z.prezime LIKE ? OR z.email LIKE ?";
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        String pojamZaPretragu = '%' + pretragaZaposleni + '%';
-        ps.setString(1, pojamZaPretragu);
-        ps.setString(2, pojamZaPretragu);
-        ps.setString(3, pojamZaPretragu);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Zaposleni z = new Zaposleni();
-            z.setZaposleniId(rs.getInt("zaposleniId"));
-            z.setIme(rs.getString("ime"));
-            z.setPrezime(rs.getString("prezime"));
-            z.setEmail(rs.getString("email"));
-            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
-
-            OrganizacionaCelina oc = new OrganizacionaCelina();
-            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
-            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
-            z.setOrganizacionaCelina(oc);
-
-            RadnoMesto rm = new RadnoMesto();
-            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
-            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
-            z.setRadnoMesto(rm);
-
-            vratiZaposlenePretraga.add(z);
-        }
-
-        return vratiZaposlenePretraga;
-
-    }
-
-    public void obrisiZaposlenog(Zaposleni zaposleni1) throws Exception {
-        try {
-            String upit = "DELETE FROM zaposleni WHERE zaposleniId = ?";
-            PreparedStatement ps = konekcija.prepareStatement(upit);
-            ps.setInt(1, zaposleni1.getZaposleniId());
-
-            ps.execute();
-            konekcija.commit();
-        } catch (Exception ex) {
-            konekcija.rollback();
-            throw new Exception("Doslo je do greske prilikom brisanja zaposlenog: " + zaposleni1);
-        }
-
-    }
-
-    public LinkedList<Projekat> vratiProjekte() throws Exception {
-        LinkedList<Projekat> listaProjekata = new LinkedList<>();
-
-        String upit = "SELECT * FROM projekat p "
-                + "JOIN zaposleni z ON p.rukovodilacId = z.zaposleniID "
-                + "JOIN organizacionacelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
-                + "JOIN radnomesto rm ON z.radnoMestoId = rm.radnoMestoId";
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-
-            Projekat p = new Projekat();
-            p.setProjekatId(rs.getInt("projekatId"));
-            p.setNazivProjekta(rs.getString("nazivProjekta"));
-            p.setPocetakRealizacije(rs.getDate("pocetakRealizacije"));
-            p.setPrioritet(Prioritet.valueOf(rs.getString("prioritet")));
-            p.setStanje(Stanje.valueOf(rs.getString("stanje")));
-
-            Zaposleni z = new Zaposleni();
-            z.setZaposleniId(rs.getInt("zaposleniId"));
-            z.setIme(rs.getString("ime"));
-            z.setPrezime(rs.getString("prezime"));
-            z.setEmail(rs.getString("email"));
-            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
-
-            OrganizacionaCelina oc = new OrganizacionaCelina();
-            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
-            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
-            z.setOrganizacionaCelina(oc);
-
-            RadnoMesto rm = new RadnoMesto();
-            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
-            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
-            z.setRadnoMesto(rm);
-
-            p.setRukovodilac(z);
-
-            listaProjekata.add(p);
-
-        }
-
-        return listaProjekata;
-
-    }
-
-    public LinkedList<Projekat> vratiProjektePretraga(String pretragaProjekti) throws Exception {
-        LinkedList<Projekat> vratiProjektePretraga = new LinkedList<>();
-        String upit = "SELECT * FROM projekat p JOIN zaposleni z ON p.rukovodilacId = z.zaposleniID "
-                + "JOIN organizacionacelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
-                + "JOIN radnomesto rm ON z.radnoMestoId = rm.radnoMestoId "
-                + "WHERE p.nazivProjekta LIKE ? OR p.prioritet LIKE ? OR p.stanje LIKE ?";
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        String pojamZaPretragu = '%' + pretragaProjekti + '%';
-        ps.setString(1, pojamZaPretragu);
-        ps.setString(2, pojamZaPretragu);
-        ps.setString(3, pojamZaPretragu);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Projekat p = new Projekat();
-            p.setProjekatId(rs.getInt("projekatId"));
-            p.setNazivProjekta(rs.getString("nazivProjekta"));
-            p.setPocetakRealizacije(rs.getDate("pocetakRealizacije"));
-            p.setPrioritet(Prioritet.valueOf(rs.getString("prioritet")));
-            p.setStanje(Stanje.valueOf(rs.getString("stanje")));
-
-            Zaposleni z = new Zaposleni();
-            z.setZaposleniId(rs.getInt("zaposleniId"));
-            z.setIme(rs.getString("ime"));
-            z.setPrezime(rs.getString("prezime"));
-            z.setEmail(rs.getString("email"));
-            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
-
-            OrganizacionaCelina oc = new OrganizacionaCelina();
-            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
-            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
-            z.setOrganizacionaCelina(oc);
-
-            RadnoMesto rm = new RadnoMesto();
-            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
-            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
-            z.setRadnoMesto(rm);
-
-            p.setRukovodilac(z);
-
-            vratiProjektePretraga.add(p);
-        }
-
-        return vratiProjektePretraga;
-    }
+//    public LinkedList<Projekat> vratiProjektePretraga(String pretragaProjekti) throws Exception {
+//        LinkedList<Projekat> vratiProjektePretraga = new LinkedList<>();
+//        String upit = "SELECT * FROM projekat p JOIN zaposleni z ON p.rukovodilacId = z.zaposleniID "
+//                + "JOIN organizacionacelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
+//                + "JOIN radnomesto rm ON z.radnoMestoId = rm.radnoMestoId "
+//                + "WHERE p.nazivProjekta LIKE ? OR p.prioritet LIKE ? OR p.stanje LIKE ?";
+//        PreparedStatement ps = konekcija.prepareStatement(upit);
+//        String pojamZaPretragu = '%' + pretragaProjekti + '%';
+//        ps.setString(1, pojamZaPretragu);
+//        ps.setString(2, pojamZaPretragu);
+//        ps.setString(3, pojamZaPretragu);
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {
+//            Projekat p = new Projekat();
+//            p.setProjekatId(rs.getInt("projekatId"));
+//            p.setNazivProjekta(rs.getString("nazivProjekta"));
+//            p.setPocetakRealizacije(rs.getDate("pocetakRealizacije"));
+//            p.setPrioritet(Prioritet.valueOf(rs.getString("prioritet")));
+//            p.setStanje(Stanje.valueOf(rs.getString("stanje")));
+//
+//            Zaposleni z = new Zaposleni();
+//            z.setZaposleniId(rs.getInt("zaposleniId"));
+//            z.setIme(rs.getString("ime"));
+//            z.setPrezime(rs.getString("prezime"));
+//            z.setEmail(rs.getString("email"));
+//            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
+//
+//            OrganizacionaCelina oc = new OrganizacionaCelina();
+//            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
+//            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
+//            z.setOrganizacionaCelina(oc);
+//
+//            RadnoMesto rm = new RadnoMesto();
+//            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
+//            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
+//            z.setRadnoMesto(rm);
+//
+//            p.setRukovodilac(z);
+//
+//            vratiProjektePretraga.add(p);
+//        }
+//
+//        return vratiProjektePretraga;
+//    }
 
     //Razmoriti i opciju safe delite da mi samo postavlja u Otkazan a ne brisanje. Mada to moze i na izmenu da se racuna
-    public void obrisiProjekat(Projekat projekat1) throws Exception {
-        try {
-            String upit = "DELETE FROM projekat WHERE projekatId = ?";
-            PreparedStatement ps = konekcija.prepareStatement(upit);
-            ps.setInt(1, projekat1.getProjekatId());
+//    public void obrisiProjekat(Projekat projekat1) throws Exception {
+//        try {
+//            String upit = "DELETE FROM projekat WHERE projekatId = ?";
+//            PreparedStatement ps = konekcija.prepareStatement(upit);
+//            ps.setInt(1, projekat1.getProjekatId());
+//
+//            ps.execute();
+//            konekcija.commit();
+//        } catch (Exception ex) {
+//            konekcija.rollback();
+//            throw new Exception("Doslo je do greske prilikom brisanja projekta: " + projekat1);
+//        }
+//    }
 
-            ps.execute();
-            konekcija.commit();
-        } catch (Exception ex) {
-            konekcija.rollback();
-            throw new Exception("Doslo je do greske prilikom brisanja projekta: " + projekat1);
-        }
-    }
-
-    public void dodajAngazovenje(Projekat projekat) throws Exception {
-        try {
-            String upit = "INSERT INTO angazovanje(zaposleniId, projekatId, pocetakAngazovanja) values (?, ?, ?)";
-            PreparedStatement ps = konekcija.prepareStatement(upit);
-            for (Zaposleni zaposleni : projekat.getZaposleni()) {
-                ps.setInt(1, zaposleni.getZaposleniId());
-                ps.setInt(2, projekat.getProjekatId());
-                ps.setDate(3, new java.sql.Date(projekat.getPocetakRealizacije().getTime()));
-                ps.addBatch();
-            }
-            ps.executeBatch();
-            konekcija.commit();
-
-            azurirajStanjeProjektaNaAktivan(projekat);
-
-        } catch (Exception ex) {
-            konekcija.rollback();
-            throw new Exception("Doslo je do greske prilikom dodavanja angazovanja.");
-        }
-    }
+//    public void dodajAngazovenje(Projekat projekat) throws Exception {
+//        try {
+//            String upit = "INSERT INTO angazovanje(zaposleniId, projekatId, pocetakAngazovanja) values (?, ?, ?)";
+//            PreparedStatement ps = konekcija.prepareStatement(upit);
+//            for (Zaposleni zaposleni : projekat.getZaposleni()) {
+//                ps.setInt(1, zaposleni.getZaposleniId());
+//                ps.setInt(2, projekat.getProjekatId());
+//                ps.setDate(3, new java.sql.Date(projekat.getPocetakRealizacije().getTime()));
+//                ps.addBatch();
+//            }
+//            ps.executeBatch();
+//            konekcija.commit();
+//
+//            azurirajStanjeProjektaNaAktivan(projekat);
+//
+//        } catch (Exception ex) {
+//            konekcija.rollback();
+//            throw new Exception("Doslo je do greske prilikom dodavanja angazovanja.");
+//        }
+//    }
 
     
 
-    public LinkedList<Angazovanje> vratiAngazovanja() throws Exception {
-        LinkedList<Angazovanje> listaAngazovanja = new LinkedList<>();
-        String upit = "SELECT * FROM angazovanje a JOIN zaposleni z ON a.zaposleniId = z.zaposleniId "
-                    + "JOIN projekat p ON a.projekatId = p.projekatId order by 1";
+//    public LinkedList<Angazovanje> vratiAngazovanja() throws Exception {
+//        LinkedList<Angazovanje> listaAngazovanja = new LinkedList<>();
+//        String upit = "SELECT * FROM angazovanje a JOIN zaposleni z ON a.zaposleniId = z.zaposleniId "
+//                    + "JOIN projekat p ON a.projekatId = p.projekatId order by 1";
+//
+//        PreparedStatement ps = konekcija.prepareStatement(upit);
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {
+//            Angazovanje a = new Angazovanje();
+//            a.setAngazovanjeId(rs.getInt("angazovanjeId"));
+//
+//            Projekat p = new Projekat();
+//            p.setProjekatId(rs.getInt("projekatId"));
+//            p.setNazivProjekta(rs.getString("nazivProjekta"));
+//            p.setPocetakRealizacije(rs.getDate("pocetakRealizacije"));
+//            p.setPrioritet(Prioritet.valueOf(rs.getString("prioritet")));
+//            p.setStanje(Stanje.valueOf(rs.getString("stanje")));
+//
+//            Zaposleni z = new Zaposleni();
+//            z.setZaposleniId(rs.getInt("zaposleniId"));
+//            z.setIme(rs.getString("ime"));
+//            z.setPrezime(rs.getString("prezime"));
+//            z.setEmail(rs.getString("email"));
+//            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
+//
+//            p.setRukovodilac(z);
+//
+//            a.setProjekat(p);
+//
+//            a.setZaposleni(z);
+//
+//            a.setPocetakAngazovanja(rs.getDate("pocetakAngazovanja"));
+//            a.setKrajAngazovanja(rs.getDate("krajAngazovanja"));
+//
+//            listaAngazovanja.add(a);
+//        }
+//
+//        return listaAngazovanja;
+//
+//    }
 
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Angazovanje a = new Angazovanje();
-            a.setAngazovanjeId(rs.getInt("angazovanjeId"));
+//    public void dodajAngazovenjeIzAngazovanja(Angazovanje angazovanje) throws Exception {
+//        try {
+//            String upit = "INSERT INTO angazovanje(zaposleniId, projekatId, pocetakAngazovanja) values (?, ?, ?)";
+//            PreparedStatement ps = konekcija.prepareStatement(upit);
+//            ps.setInt(1, angazovanje.getZaposleni().getZaposleniId());
+//            ps.setInt(2, angazovanje.getProjekat().getProjekatId());
+//            ps.setDate(3, new java.sql.Date(angazovanje.getPocetakAngazovanja().getTime()));
+//            
+//            ps.execute();
+//            konekcija.commit();
+//
+//            azurirajStanjeProjektaNaAktivanZaAngazovanje(angazovanje);
+//
+//        } catch (Exception ex) {
+//            konekcija.rollback();
+//            throw new Exception("Doslo je do greske prilikom dodavanja angazovanja.");
+//        }
+//    }
 
-            Projekat p = new Projekat();
-            p.setProjekatId(rs.getInt("projekatId"));
-            p.setNazivProjekta(rs.getString("nazivProjekta"));
-            p.setPocetakRealizacije(rs.getDate("pocetakRealizacije"));
-            p.setPrioritet(Prioritet.valueOf(rs.getString("prioritet")));
-            p.setStanje(Stanje.valueOf(rs.getString("stanje")));
-
-            Zaposleni z = new Zaposleni();
-            z.setZaposleniId(rs.getInt("zaposleniId"));
-            z.setIme(rs.getString("ime"));
-            z.setPrezime(rs.getString("prezime"));
-            z.setEmail(rs.getString("email"));
-            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
-
-            p.setRukovodilac(z);
-
-            a.setProjekat(p);
-
-            a.setZaposleni(z);
-
-            a.setPocetakAngazovanja(rs.getDate("pocetakAngazovanja"));
-            a.setKrajAngazovanja(rs.getDate("krajAngazovanja"));
-
-            listaAngazovanja.add(a);
-        }
-
-        return listaAngazovanja;
-
-    }
-
-    public void dodajAngazovenjeIzAngazovanja(Angazovanje angazovanje) throws Exception {
-        try {
-            String upit = "INSERT INTO angazovanje(zaposleniId, projekatId, pocetakAngazovanja) values (?, ?, ?)";
-            PreparedStatement ps = konekcija.prepareStatement(upit);
-            ps.setInt(1, angazovanje.getZaposleni().getZaposleniId());
-            ps.setInt(2, angazovanje.getProjekat().getProjekatId());
-            ps.setDate(3, new java.sql.Date(angazovanje.getPocetakAngazovanja().getTime()));
-            
-            ps.execute();
-            konekcija.commit();
-
-            azurirajStanjeProjektaNaAktivanZaAngazovanje(angazovanje);
-
-        } catch (Exception ex) {
-            konekcija.rollback();
-            throw new Exception("Doslo je do greske prilikom dodavanja angazovanja.");
-        }
-    }
-
-    private void azurirajStanjeProjektaNaAktivanZaAngazovanje(Angazovanje angazovanje) throws Exception {
-        try {
-            String upit = "UPDATE projekat SET stanje = 'Aktivan' WHERE projekatId = ?";
-
-            PreparedStatement ps = konekcija.prepareStatement(upit);
-            ps.setInt(1, angazovanje.getProjekat().getProjekatId());
-
-            ps.execute();
-            konekcija.commit();
-        } catch (Exception ex) {
-            konekcija.rollback();
-            throw new Exception("Doslo je do greske prilikom azuriranja projekta: " + angazovanje.getProjekat());
-        }
-    }
+//    private void azurirajStanjeProjektaNaAktivanZaAngazovanje(Angazovanje angazovanje) throws Exception {
+//        try {
+//            String upit = "UPDATE projekat SET stanje = 'Aktivan' WHERE projekatId = ?";
+//
+//            PreparedStatement ps = konekcija.prepareStatement(upit);
+//            ps.setInt(1, angazovanje.getProjekat().getProjekatId());
+//
+//            ps.execute();
+//            konekcija.commit();
+//        } catch (Exception ex) {
+//            konekcija.rollback();
+//            throw new Exception("Doslo je do greske prilikom azuriranja projekta: " + angazovanje.getProjekat());
+//        }
+//    }
 
     
 

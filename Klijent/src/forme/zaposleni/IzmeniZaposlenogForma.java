@@ -34,7 +34,7 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
            setTitle("Izmena i Brisanje zaposlenog");
            btnObrisiZaposlenog.setEnabled(false);
            btnIzmeniZaposlenog.setEnabled(false);
-           tblZaposleni.setAutoCreateRowSorter(true);
+           //tblZaposleni.setAutoCreateRowSorter(true);
            mtz = new ModelTabeleZaposleni();
            tblZaposleni.setModel(mtz);
            popuniTabeluSvimZaposlenim();

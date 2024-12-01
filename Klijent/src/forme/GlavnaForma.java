@@ -29,6 +29,7 @@ public class GlavnaForma extends javax.swing.JFrame{
         initComponents();
         setLocationRelativeTo(null);
         lblUlogovani.setText("Administrator: " + Sesija.getInstanca().getUlogovani());
+        menuAngazovanja.setVisible(false);
     }
 
     /**

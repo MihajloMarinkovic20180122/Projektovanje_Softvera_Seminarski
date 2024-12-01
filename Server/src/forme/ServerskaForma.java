@@ -91,14 +91,14 @@ public class ServerskaForma extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblUlogovani);
 
-        btnIzlogujAdministratora.setText("Izloguj administratora");
+        btnIzlogujAdministratora.setText("Odjavi administratora");
         btnIzlogujAdministratora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIzlogujAdministratoraActionPerformed(evt);
             }
         });
 
-        btnIzlogujSve.setText("Izloguj sve");
+        btnIzlogujSve.setText("Odjavi sve");
         btnIzlogujSve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIzlogujSveActionPerformed(evt);
@@ -168,6 +168,8 @@ public class ServerskaForma extends javax.swing.JFrame {
             System.out.println("Server je pokrenut.");
             btnPokreniServer.setEnabled(false);
             btnZaustaviServer.setEnabled(true);
+            btnIzlogujAdministratora.setEnabled(true);
+            btnIzlogujSve.setEnabled(true);
         } catch (Exception ex) {
             Logger.getLogger(ServerskaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,6 +180,9 @@ public class ServerskaForma extends javax.swing.JFrame {
             sn.zaustaviServer();
             btnZaustaviServer.setEnabled(false);
             btnPokreniServer.setEnabled(true);
+            panelAdministratori.setVisible(false);
+            btnIzlogujAdministratora.setEnabled(false);
+            btnIzlogujSve.setEnabled(false);
         }
     }//GEN-LAST:event_btnZaustaviServerActionPerformed
 
@@ -188,19 +193,19 @@ public class ServerskaForma extends javax.swing.JFrame {
                 Administrator administrator = mtu.vratiIzabranogAdministratora(red);
                 boolean uspesnoIzlogovan = sn.izlogujAdministratora(administrator);
                 if(uspesnoIzlogovan){
-                    JOptionPane.showMessageDialog(rootPane, "Uspesno ste izlogovali administratora: " + administrator);
+                    JOptionPane.showMessageDialog(rootPane, "Uspesno ste odjavili administratora: " + administrator);
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Odaberite administratora kog zelite da izlogujete.");
+            JOptionPane.showMessageDialog(rootPane, "Odaberite administratora kog zelite da odjavite.");
         }
     }//GEN-LAST:event_btnIzlogujAdministratoraActionPerformed
 
     private void btnIzlogujSveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzlogujSveActionPerformed
         sn.izlogujSveAdministratore();
-        JOptionPane.showMessageDialog(rootPane, "Svi administratori su izlogovani.");
+        JOptionPane.showMessageDialog(rootPane, "Svi administratori su odjavljeni.");
 
     }//GEN-LAST:event_btnIzlogujSveActionPerformed
 

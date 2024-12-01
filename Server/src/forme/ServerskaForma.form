@@ -122,7 +122,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnIzlogujAdministratora">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Izloguj administratora"/>
+            <Property name="text" type="java.lang.String" value="Odjavi administratora"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIzlogujAdministratoraActionPerformed"/>
@@ -130,7 +130,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnIzlogujSve">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Izloguj sve"/>
+            <Property name="text" type="java.lang.String" value="Odjavi sve"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIzlogujSveActionPerformed"/>

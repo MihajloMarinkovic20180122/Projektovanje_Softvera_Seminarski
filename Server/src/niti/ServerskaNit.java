@@ -68,12 +68,12 @@ public class ServerskaNit extends Thread{
     public void mozeDaSeUloguje(Administrator administratorPokusaj) throws Exception{
         for(ObradaKlijentskihZahtevaNit klijentskaNit: listaKlijentskihNiti){
             if(klijentskaNit.getAdministrator()!=null && klijentskaNit.getAdministrator().getEmail().equalsIgnoreCase(administratorPokusaj.getEmail())){
-                throw new Exception("Administrator " + klijentskaNit.getAdministrator() + " je vec ulogovan");
+                throw new Exception("Administrator " + klijentskaNit.getAdministrator() + " je vec prijavljen.");
             }
         }
         int brojUlogovanih = brojUlogovanih();
         if(brojUlogovanih >= maxBrojAdministratora){
-            throw new Exception("Postignut je maksimalni broj ulogovanih administatora.");
+            throw new Exception("Postignut je maksimalni broj prijavljenih administatora.");
         }
     }
     
@@ -94,7 +94,7 @@ public class ServerskaNit extends Thread{
                 return true;
             }
         }
-        throw new Exception("Administrator je vec izlogovan.");
+        throw new Exception("Administrator je vec odjavljen.");
     }
     
     public void zaustaviServer() {

@@ -11,5 +11,5 @@ package konstante;
 public class Konstante {
     public static final int PORT_SERVERA = 10001;
     public static final String ADRESA_SERVERA = "localhost";
-    public static final int LOGIN_MAX_BROJ_POKUSAJA = 3;
+    //public static final int LOGIN_MAX_BROJ_POKUSAJA = 3;
 }

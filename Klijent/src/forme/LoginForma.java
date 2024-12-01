@@ -5,8 +5,11 @@
 package forme;
 
 import domen.Administrator;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,11 +27,21 @@ public class LoginForma extends javax.swing.JFrame{
     /**
      * Creates new form LoginForma
      */
-    int maxBrojPokusaja = Konstante.LOGIN_MAX_BROJ_POKUSAJA;
+    int maxBrojPokusaja = 0;
     int brojacPokusaja = 0;
     public LoginForma() {
-        initComponents();
-        setLocationRelativeTo(null);
+        try{
+            initComponents();
+            setLocationRelativeTo(null);
+            File file = new File("app.config");
+            FileInputStream fis = new FileInputStream(file);
+            Properties prop = new Properties();
+            prop.load(fis);
+            String max_br_pok = prop.getProperty("LOGIN_MAX_BROJ_POKUSAJA");
+            maxBrojPokusaja = Integer.parseInt(max_br_pok);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -56,7 +69,7 @@ public class LoginForma extends javax.swing.JFrame{
 
         txtLozinka.setText("miha123");
 
-        btnUlogujSe.setText("Uloguj se");
+        btnUlogujSe.setText("Prijavi se");
         btnUlogujSe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUlogujSeActionPerformed(evt);
