@@ -185,10 +185,13 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                         throw new Exception("Doslo je do greske prilikom izmene podataka projekta!");
                     }
                     break;
-//                case Operacije.OBRISI_PROJEKAT:
-//                    Projekat projekat1 = (Projekat) kz.getParametar();
-//                    ServerKontroler.getInstanca().obrisiProjekat(projekat1);
-//                    break;
+                case Operacije.OBRISI_PROJEKAT:
+                    Projekat projekatZaObrisati = (Projekat) kz.getParametar();
+                    boolean uspesnoObrisanProjekat = ServerKontroler.getInstanca().obrisiProjekat(projekatZaObrisati);
+                    if(!uspesnoObrisanProjekat){
+                        throw new Exception("Doslo je do greske prilikom brisanja projekta!");
+                    }
+                    break;
 //                case Operacije.DODAJ_ANGAZOVANJE:
 //                    Angazovanje angazovanje = (Angazovanje) kz.getParametar();
 //                    ServerKontroler.getInstanca().dodajAngazovanje(angazovanje);

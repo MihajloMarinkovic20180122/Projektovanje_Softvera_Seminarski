@@ -335,11 +335,24 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             
             KlijentKontrolerProjekat.getInstanca().obrisiProjekat(projekat);
             mtp.setListaProjekata(KlijentKontrolerProjekat.getInstanca().vratiProjekte());
+            
+            txtIdProjekta.setText("");
+            txtNazivProjekta.setText("");
+            txtPocetakRealizacijeProjekta.setText("");
+            cmbRukovodilacProjekta.setSelectedIndex(0);
+            cmbPrioritetProjekta.setSelectedIndex(0);
+            cmbStanjeProjekta.setSelectedIndex(0);
+            cmbZaposleni.setSelectedIndex(0);
+            ModelTabeleZaposleni mtz =  (ModelTabeleZaposleni) tblZaposleni.getModel();
+            mtz.setListaZaposlenih(new LinkedList<>());
+            btnObrisiProjekat.setEnabled(false);
+            btnIzmeniProjekat.setEnabled(false);
+            
             JOptionPane.showMessageDialog(rootPane, "Uspesno ste obrisali projekat: " + projekat);
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Greska pri brisanju projekta!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnObrisiProjekatActionPerformed
 

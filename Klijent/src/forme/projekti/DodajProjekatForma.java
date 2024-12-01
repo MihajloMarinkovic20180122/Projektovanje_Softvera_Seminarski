@@ -231,6 +231,18 @@ public class DodajProjekatForma extends javax.swing.JDialog {
                     this.dispose();
                 }
             }
+            Projekat projekat = new Projekat(0, naziv, datumPocetkaRealizacije, rukovodilac, prioritet, Stanje.Kreiran, listaZaposlenih, null);
+            KlijentKontrolerProjekat.getInstanca().dodajProjekat(projekat);
+            txtNazivProjekta.setText("");
+            txtPocetakRealizacijeProjekta.setText("");
+            cmbRukovodilacProjekta.setSelectedIndex(0);
+            cmbPrioritetProjekta.setSelectedIndex(0);
+            cmbZaposleni.setSelectedIndex(0);
+            mtz.setListaZaposlenih(new LinkedList<>());
+
+            JOptionPane.showMessageDialog(rootPane, "Uspesno ste sačuvali projekat.");
+
+            this.dispose();
 
         } catch (Exception ex) {
             ex.printStackTrace();
