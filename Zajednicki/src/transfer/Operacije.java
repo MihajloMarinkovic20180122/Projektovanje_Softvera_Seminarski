@@ -25,8 +25,9 @@ public interface Operacije {
     public static final int UCITAJ_PROJEKAT = 13;
     public static final int VRATI_PROJEKTE_PRETRAGA = 14;
     public static final int OBRISI_PROJEKAT = 15;
-    public static final int DODAJ_ANGAZOVANJE = 16;
-    public static final int VRATI_ANGAZOVANJA = 17;
+    public static final int IZMENI_PODATKE_PROJEKTA = 16;
+    public static final int DODAJ_ANGAZOVANJE = 17;
+    public static final int VRATI_ANGAZOVANJA = 18;
 
 
 

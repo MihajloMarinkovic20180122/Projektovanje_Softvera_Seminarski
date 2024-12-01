@@ -142,7 +142,7 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                     Zaposleni izmenjeniZaposleni = (Zaposleni) kz.getParametar();
                     boolean uspesnoIzmenjenZaposleni = ServerKontroler.getInstanca().izmeniPodatkeZaposlenog(izmenjeniZaposleni);
                     if(!uspesnoIzmenjenZaposleni){
-                        throw new Exception("Doslo je do greske prilikom izmene zaposlenog!");
+                        throw new Exception("Doslo je do greske prilikom izmene podataka zaposlenog!");
                     }
                     break;
                 case Operacije.DODAJ_PROJEKAT:
@@ -176,6 +176,13 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                         throw new Exception("Doslo je do greske pri ucitavanju odabranog projekta.");
                     } else {
                         so.setOdgovor(ucitaniProjekat);
+                    }
+                    break;
+                case Operacije.IZMENI_PODATKE_PROJEKTA:
+                    Projekat izmenjeniProjekat = (Projekat) kz.getParametar();
+                    boolean uspesnoIzmenjenProjekat = ServerKontroler.getInstanca().izmeniPodatkeProjekta(izmenjeniProjekat);
+                    if(!uspesnoIzmenjenProjekat){
+                        throw new Exception("Doslo je do greske prilikom izmene podataka projekta!");
                     }
                     break;
 //                case Operacije.OBRISI_PROJEKAT:

@@ -150,6 +150,64 @@ public class DBBroker {
 
     }
     
+    public LinkedList<Angazovanje> vratiAngazovanjaProjekta(Projekat ucitaniProjekat) throws SQLException {
+        LinkedList<Angazovanje> listaAngazovanja = new LinkedList<>();
+        String upit = "SELECT * FROM angazovanje a JOIN zaposleni z ON a.zaposleniId = z.zaposleniId "
+                    + "JOIN organizacionacelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
+                    + "JOIN radnomesto rm ON z.radnoMestoId = rm.radnoMestoId "
+                    + "JOIN projekat p ON a.projekatId = p.projekatId where a.projekatId = ? order by 1";
+
+        PreparedStatement ps = konekcija.prepareStatement(upit);
+        ps.setInt(1, ucitaniProjekat.getProjekatId());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Angazovanje a = new Angazovanje();
+            a.setAngazovanjeId(rs.getInt("angazovanjeId"));
+
+            Projekat p = new Projekat();
+            p.setProjekatId(rs.getInt("projekatId"));
+            p.setNazivProjekta(rs.getString("nazivProjekta"));
+            p.setPocetakRealizacije(rs.getDate("pocetakRealizacije"));
+            p.setPrioritet(Prioritet.valueOf(rs.getString("prioritet")));
+            p.setStanje(Stanje.valueOf(rs.getString("stanje")));
+
+            Zaposleni z = new Zaposleni();
+            z.setZaposleniId(rs.getInt("zaposleniId"));
+            z.setIme(rs.getString("ime"));
+            z.setPrezime(rs.getString("prezime"));
+            z.setEmail(rs.getString("email"));
+            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
+            
+            OrganizacionaCelina oc = new OrganizacionaCelina();
+            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
+            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
+            z.setOrganizacionaCelina(oc);
+
+            RadnoMesto rm = new RadnoMesto();
+            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
+            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
+            z.setRadnoMesto(rm);
+
+            p.setRukovodilac(z);
+
+            a.setProjekat(p);
+
+            a.setZaposleni(z);
+
+            a.setPocetakAngazovanja(rs.getDate("pocetakAngazovanja"));
+            a.setKrajAngazovanja(rs.getDate("krajAngazovanja"));
+
+            listaAngazovanja.add(a);
+        }
+
+        return listaAngazovanja;
+    }
+    
+    public Angazovanje vratiAngazovanjeZaProjekat(Projekat izmenjeniProjekat) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
     public Administrator login(Administrator ad) throws Exception {
         LinkedList<Administrator> listaAdministratora = new LinkedList<>();
         String upit = "SELECT * FROM administrator";
@@ -549,58 +607,9 @@ public class DBBroker {
         }
     }
 
-    public LinkedList<Angazovanje> vratiAngazovanjaProjekta(Projekat ucitaniProjekat) throws SQLException {
-        LinkedList<Angazovanje> listaAngazovanja = new LinkedList<>();
-        String upit = "SELECT * FROM angazovanje a JOIN zaposleni z ON a.zaposleniId = z.zaposleniId "
-                    + "JOIN organizacionacelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
-                    + "JOIN radnomesto rm ON z.radnoMestoId = rm.radnoMestoId "
-                    + "JOIN projekat p ON a.projekatId = p.projekatId where a.projekatId = ? order by 1";
+    
 
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        ps.setInt(1, ucitaniProjekat.getProjekatId());
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Angazovanje a = new Angazovanje();
-            a.setAngazovanjeId(rs.getInt("angazovanjeId"));
-
-            Projekat p = new Projekat();
-            p.setProjekatId(rs.getInt("projekatId"));
-            p.setNazivProjekta(rs.getString("nazivProjekta"));
-            p.setPocetakRealizacije(rs.getDate("pocetakRealizacije"));
-            p.setPrioritet(Prioritet.valueOf(rs.getString("prioritet")));
-            p.setStanje(Stanje.valueOf(rs.getString("stanje")));
-
-            Zaposleni z = new Zaposleni();
-            z.setZaposleniId(rs.getInt("zaposleniId"));
-            z.setIme(rs.getString("ime"));
-            z.setPrezime(rs.getString("prezime"));
-            z.setEmail(rs.getString("email"));
-            z.setDatumZaposlenja(rs.getDate("datumZaposlenja"));
-            
-            OrganizacionaCelina oc = new OrganizacionaCelina();
-            oc.setOrganizacionaCelinaId(rs.getInt("organizacionaCelinaId"));
-            oc.setNazivOrganizacioneCeline(rs.getString("nazivOrganizacioneCeline"));
-            z.setOrganizacionaCelina(oc);
-
-            RadnoMesto rm = new RadnoMesto();
-            rm.setRadnoMestoId(rs.getInt("radnoMestoId"));
-            rm.setNazivRadnogMesta(rs.getString("nazivRadnogMesta"));
-            z.setRadnoMesto(rm);
-
-            p.setRukovodilac(z);
-
-            a.setProjekat(p);
-
-            a.setZaposleni(z);
-
-            a.setPocetakAngazovanja(rs.getDate("pocetakAngazovanja"));
-            a.setKrajAngazovanja(rs.getDate("krajAngazovanja"));
-
-            listaAngazovanja.add(a);
-        }
-
-        return listaAngazovanja;
-    }
+    
 
     
 

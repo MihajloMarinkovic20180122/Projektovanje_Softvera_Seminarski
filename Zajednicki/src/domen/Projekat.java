@@ -150,7 +150,7 @@ public class Projekat implements OpstiDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "nazivProjekta='" + nazivProjekta + "', pocetakRealizacije='" + new java.sql.Date(pocetakRealizacije.getTime()) + "', rukovodilacId=" + rukovodilac.getZaposleniId() + ", prioritet='" + prioritet + "', stanje='" + stanje + "'";
     }
 
     @Override

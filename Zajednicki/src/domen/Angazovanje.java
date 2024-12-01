@@ -79,7 +79,7 @@ public class Angazovanje implements OpstiDomenskiObjekat{
 
     @Override
     public String vratiPrimarniKljuc() {
-        return "zaposleniId=" + zaposleni.getZaposleniId() + " AND projekatId=" + projekat.getProjekatId() + " AND angazovanjeId=" + angazovanjeId;
+        return "angazovanjeId=" + angazovanjeId;
     }
 
     @Override

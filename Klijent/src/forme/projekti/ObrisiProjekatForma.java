@@ -5,10 +5,13 @@
 package forme.projekti;
 
 import domen.Prioritet;
+import domen.Stanje;
 import domen.Projekat;
 import domen.Zaposleni;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,9 +45,12 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             tblProjekti.setModel(mtp);
             mtz = new ModelTabeleZaposleni();
             tblZaposleni.setModel(mtz);
+            btnObrisiProjekat.setEnabled(false);
+            btnIzmeniProjekat.setEnabled(false);
             popuniTabeluSvimProjektima();
             popuniCmbRukovodilac();
             popuniCmbPrioriter();
+            popuniCmbStanje();
             popuniCmbZaposleni();
         } catch (Exception ex) {
             Logger.getLogger(ObrisiProjekatForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,8 +72,8 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
         tblProjekti = new javax.swing.JTable();
         btnPronadjiProjekat = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        btnObrisi = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnObrisiProjekat = new javax.swing.JButton();
+        btnIzmeniProjekat = new javax.swing.JButton();
         txtPocetakRealizacijeProjekta = new javax.swing.JFormattedTextField();
         cmbRukovodilacProjekta = new javax.swing.JComboBox<>();
         cmbPrioritetProjekta = new javax.swing.JComboBox();
@@ -82,6 +88,10 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
         lblPrioritetProjekta = new javax.swing.JLabel();
         btnObrisiZaposlenog = new javax.swing.JButton();
         txtNazivProjekta = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtIdProjekta = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        cmbStanjeProjekta = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,14 +150,19 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Učitani projekat"));
 
-        btnObrisi.setText("Obriši projekat");
-        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+        btnObrisiProjekat.setText("Obriši projekat");
+        btnObrisiProjekat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnObrisiActionPerformed(evt);
+                btnObrisiProjekatActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Izmeni projekat");
+        btnIzmeniProjekat.setText("Izmeni projekat");
+        btnIzmeniProjekat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzmeniProjekatActionPerformed(evt);
+            }
+        });
 
         try {
             txtPocetakRealizacijeProjekta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.##.####.")));
@@ -192,77 +207,90 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setText("ID:");
+
+        txtIdProjekta.setEditable(false);
+
+        jLabel3.setText("Stanje:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(409, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnObrisi)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnObrisiProjekat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnIzmeniProjekat))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNazivProjekta1)
+                            .addComponent(lblRukovodilacProjekta)
+                            .addComponent(lblPrioritetProjekta)
+                            .addComponent(lblNazivProjekta)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNazivProjekta)
+                            .addComponent(txtPocetakRealizacijeProjekta)
+                            .addComponent(cmbRukovodilacProjekta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbPrioritetProjekta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(cmbZaposleni, 0, 360, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDodajZaposlenog)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnObrisiZaposlenog, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtIdProjekta)
+                            .addComponent(cmbStanjeProjekta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNazivProjekta1)
-                                .addComponent(lblRukovodilacProjekta)
-                                .addComponent(lblPrioritetProjekta)
-                                .addComponent(lblNazivProjekta)
-                                .addComponent(jLabel1))
-                            .addGap(15, 15, 15)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNazivProjekta)
-                                .addComponent(txtPocetakRealizacijeProjekta)
-                                .addComponent(cmbRukovodilacProjekta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbPrioritetProjekta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(cmbZaposleni, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnDodajZaposlenog)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnObrisiZaposlenog, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE))
-                    .addContainerGap()))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnObrisi)
-                    .addComponent(jButton1))
+                    .addComponent(txtIdProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNazivProjekta)
+                    .addComponent(txtNazivProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNazivProjekta1)
+                    .addComponent(txtPocetakRealizacijeProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRukovodilacProjekta)
+                    .addComponent(cmbRukovodilacProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPrioritetProjekta)
+                    .addComponent(cmbPrioritetProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbStanjeProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cmbZaposleni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDodajZaposlenog)
+                    .addComponent(btnObrisiZaposlenog))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnObrisiProjekat)
+                    .addComponent(btnIzmeniProjekat))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(11, 11, 11)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblNazivProjekta)
-                        .addComponent(txtNazivProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblNazivProjekta1)
-                        .addComponent(txtPocetakRealizacijeProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblRukovodilacProjekta)
-                        .addComponent(cmbRukovodilacProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblPrioritetProjekta)
-                        .addComponent(cmbPrioritetProjekta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(cmbZaposleni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDodajZaposlenog)
-                        .addComponent(btnObrisiZaposlenog))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(39, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -280,10 +308,9 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -301,7 +328,7 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnPronadjiProjekatActionPerformed
 
-    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+    private void btnObrisiProjekatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiProjekatActionPerformed
         try {
             int red = tblProjekti.getSelectedRow();
             Projekat projekat = mtp.vratiOdabraniProjekat(red);
@@ -314,7 +341,7 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
-    }//GEN-LAST:event_btnObrisiActionPerformed
+    }//GEN-LAST:event_btnObrisiProjekatActionPerformed
 
     private void btnDodajZaposlenogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajZaposlenogActionPerformed
         Zaposleni zaposleni = (Zaposleni) cmbZaposleni.getSelectedItem();
@@ -356,27 +383,46 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
                 //odabraniZaposleni = mtz.vratiOdabranogZaposlenog(red);
                 //Zaposleni ucitaniZaposleni = KlijentKontrolerZaposleni.getInstanca().ucitajZaposlenog(odabraniZaposleni);
     //            popuniPodatkeUcitanogZaposlenog(ucitaniZaposleni);
-    //            btnIzmeniZaposlenog.setEnabled(true);
-    //            btnObrisiZaposlenog.setEnabled(true);
+                btnIzmeniProjekat.setEnabled(true);
+                btnObrisiProjekat.setEnabled(true);
             }
         } catch (Exception ex){
             ex.printStackTrace();
         }
     }//GEN-LAST:event_tblProjektiMouseClicked
 
+    private void btnIzmeniProjekatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniProjekatActionPerformed
+        try {
+            Projekat izmenjeniProjekat = new Projekat();
+            if(proveriNovePodatke(izmenjeniProjekat)){
+                KlijentKontrolerProjekat.getInstanca().izmeniProjekat(izmenjeniProjekat);
+                JOptionPane.showMessageDialog(rootPane, "Uspesno ste izmenili podatke projekta.");
+                LinkedList<Projekat> listaSvihProjekata = KlijentKontrolerProjekat.getInstanca().vratiProjekte();
+                ModelTabeleProjekti mtp = (ModelTabeleProjekti) tblProjekti.getModel();
+                mtp.setListaProjekata(listaSvihProjekata);
+                btnObrisiProjekat.setEnabled(false);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ObrisiProjekatForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnIzmeniProjekatActionPerformed
+
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodajZaposlenog;
-    private javax.swing.JButton btnObrisi;
+    private javax.swing.JButton btnIzmeniProjekat;
+    private javax.swing.JButton btnObrisiProjekat;
     private javax.swing.JButton btnObrisiZaposlenog;
     private javax.swing.JButton btnPronadjiProjekat;
     private javax.swing.JComboBox cmbPrioritetProjekta;
     private javax.swing.JComboBox<Object> cmbRukovodilacProjekta;
+    private javax.swing.JComboBox cmbStanjeProjekta;
     private javax.swing.JComboBox<Object> cmbZaposleni;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -387,6 +433,7 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
     private javax.swing.JLabel lblRukovodilacProjekta;
     private javax.swing.JTable tblProjekti;
     private javax.swing.JTable tblZaposleni;
+    private javax.swing.JTextField txtIdProjekta;
     private javax.swing.JTextField txtNazivProjekta;
     private javax.swing.JFormattedTextField txtPocetakRealizacijeProjekta;
     private javax.swing.JTextField txtPretraga;
@@ -430,13 +477,59 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
     }
 
     private void popuniPodatkeUcitanogProjekta(Projekat ucitaniProjekat) {
+        txtIdProjekta.setText(String.valueOf(ucitaniProjekat.getProjekatId()));
         txtNazivProjekta.setText(ucitaniProjekat.getNazivProjekta());
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
         txtPocetakRealizacijeProjekta.setText(sdf.format(ucitaniProjekat.getPocetakRealizacije()));
         cmbRukovodilacProjekta.setSelectedItem(ucitaniProjekat.getRukovodilac());
         cmbPrioritetProjekta.setSelectedItem(ucitaniProjekat.getPrioritet());
+        cmbStanjeProjekta.setSelectedItem(ucitaniProjekat.getStanje());
         ModelTabeleZaposleni mtz =  (ModelTabeleZaposleni) tblZaposleni.getModel();
         mtz.setListaZaposlenih(ucitaniProjekat.getZaposleni());
     
+    }
+
+    private boolean proveriNovePodatke(Projekat izmenjeniProjekat) throws Exception {
+        izmenjeniProjekat.setProjekatId(Integer.parseInt(txtIdProjekta.getText()));
+        
+        String naziv = txtNazivProjekta.getText().trim();
+            if (naziv.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Polje Naziv ne sme biti prazno.", "Greska pri izmeni projekta!", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        izmenjeniProjekat.setNazivProjekta(naziv);
+        
+        if(txtPocetakRealizacijeProjekta.getText().contains(" ")){
+                JOptionPane.showMessageDialog(null, "Polje Početak realizacije ne sme biti prazno.", "Greska pri izmeni projekta!", JOptionPane.ERROR_MESSAGE);
+                return false;
+        }
+            
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
+        izmenjeniProjekat.setPocetakRealizacije(sdf.parse(txtPocetakRealizacijeProjekta.getText()));
+
+        izmenjeniProjekat.setRukovodilac((Zaposleni) cmbRukovodilacProjekta.getSelectedItem());
+        izmenjeniProjekat.setPrioritet((Prioritet) cmbPrioritetProjekta.getSelectedItem());
+        izmenjeniProjekat.setStanje((Stanje) cmbStanjeProjekta.getSelectedItem());
+        ModelTabeleZaposleni mtz =  (ModelTabeleZaposleni) tblZaposleni.getModel();
+        izmenjeniProjekat.setZaposleni(mtz.vratiListu());
+        
+        LinkedList<Zaposleni> listaZaposlenihProvera = izmenjeniProjekat.getZaposleni();
+        
+        if(listaZaposlenihProvera.size() == 0){
+            int izbor = JOptionPane.showConfirmDialog(this, "Niste dodali nijednog zaposlenog. Da li zelite da sačuvate projekat bez zaposlenih?", "Čuvanje projekta", JOptionPane.YES_NO_OPTION);
+
+            if (izbor == JOptionPane.YES_OPTION) {
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private void popuniCmbStanje() {
+        cmbStanjeProjekta.removeAllItems();
+        for (Stanje stanje : Stanje.values()) {
+            cmbStanjeProjekta.addItem(stanje);
+        }
     }
 }
