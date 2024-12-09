@@ -19,7 +19,7 @@ public class SOIzmeniProjekat extends SOOpsteIzvrsenje{
 
     @Override
     public boolean proveriOgranicenja(OpstiDomenskiObjekat odo) throws Exception {
-        //provera da li je prosledjeni objekat instanca klase Projekat
+
         if (odo instanceof Projekat projekat) {
             if (projekat.getNazivProjekta() == null 
                 || projekat.getPocetakRealizacije() == null
@@ -37,10 +37,20 @@ public class SOIzmeniProjekat extends SOOpsteIzvrsenje{
     @Override
     public boolean izvrsiSO(OpstiDomenskiObjekat odo) throws Exception {
         Projekat izmenjeniProjekat = (Projekat) odo;
+        LinkedList<OpstiDomenskiObjekat> listaAngazovanjaOpsta = dbb.vratiSve(new Angazovanje());
+        LinkedList<Angazovanje> listaAngazovanja = new LinkedList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaAngazovanjaOpsta) {
+            listaAngazovanja.add((Angazovanje) opstiDomenskiObjekat);
+        }
+        LinkedList<Angazovanje> listaAngazovanjaZaProjekat = new LinkedList<>();
+        for (Angazovanje angazovanje1 : listaAngazovanja) {
+            if(angazovanje1.getProjekat().getProjekatId() == izmenjeniProjekat.getProjekatId()){
+                listaAngazovanjaZaProjekat.add(angazovanje1);
+            }
+        }
         boolean projekatIzmenjen = dbb.izmeni(odo);
         boolean angazovanjaIzmenjena = true;
         if(projekatIzmenjen){
-            LinkedList<Angazovanje> listaAngazovanjaZaProjekat = dbb.vratiAngazovanjaProjekta(izmenjeniProjekat);
             LinkedList<Zaposleni> listaZaposlenihNaProjektu = new LinkedList<>();
                 for (Angazovanje angazovanje : listaAngazovanjaZaProjekat) {
                     Zaposleni z = new Zaposleni();

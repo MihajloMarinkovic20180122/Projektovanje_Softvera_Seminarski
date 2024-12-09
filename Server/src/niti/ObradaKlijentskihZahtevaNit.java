@@ -102,7 +102,8 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                     Zaposleni zaposleni = (Zaposleni) kz.getParametar();
                     boolean uspesnoSacuvanZaposleni = ServerKontroler.getInstanca().dodajZaposlenog(zaposleni);
                     if(!uspesnoSacuvanZaposleni){
-                        throw new Exception("Zaposleni sa tim Email vec postoji.");
+                        //throw new Exception("Zaposleni sa tim Email vec postoji.");
+                        throw new Exception("Sistem ne može da zapamti zaposlenog.");
                     }
                     break;
                 case Operacije.VRATI_ZAPOSLENE:
@@ -117,7 +118,7 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                     Zaposleni zaposleniZaUcitavanje = (Zaposleni) kz.getParametar();
                     Zaposleni ucitaniZaposleni = ServerKontroler.getInstanca().ucitajZaposlenog(zaposleniZaUcitavanje);
                     if(ucitaniZaposleni == null){
-                        throw new Exception("Doslo je do greske pri ucitavanju odabranog zaposlenog.");
+                        throw new Exception("Sistem ne može da učita zaposlenog.");
                     } else {
                         so.setOdgovor(ucitaniZaposleni);
                     }
@@ -149,7 +150,7 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                     Projekat projekat = (Projekat) kz.getParametar();
                     boolean uspesnoSacuvanProjekat = ServerKontroler.getInstanca().dodajProjekat(projekat);
                     if(!uspesnoSacuvanProjekat){
-                        throw new Exception("Doslo je do greske prilikom čuvanja projekta!");
+                        throw new Exception("Sistem ne može da zapamti projekat.");
                     }
                     break;
                 case Operacije.VRATI_PROJEKTE:
@@ -173,7 +174,7 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                     Projekat projekatZaUcitavanje = (Projekat) kz.getParametar();
                     Projekat ucitaniProjekat = ServerKontroler.getInstanca().ucitajProjekat(projekatZaUcitavanje);
                     if(ucitaniProjekat == null){
-                        throw new Exception("Doslo je do greske pri ucitavanju odabranog projekta.");
+                        throw new Exception("Sistem ne može da učita projekat.");
                     } else {
                         so.setOdgovor(ucitaniProjekat);
                     }
@@ -182,14 +183,14 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                     Projekat izmenjeniProjekat = (Projekat) kz.getParametar();
                     boolean uspesnoIzmenjenProjekat = ServerKontroler.getInstanca().izmeniPodatkeProjekta(izmenjeniProjekat);
                     if(!uspesnoIzmenjenProjekat){
-                        throw new Exception("Doslo je do greske prilikom izmene podataka projekta!");
+                        throw new Exception("Sistem ne može da zapamti projekat.");
                     }
                     break;
                 case Operacije.OBRISI_PROJEKAT:
                     Projekat projekatZaObrisati = (Projekat) kz.getParametar();
                     boolean uspesnoObrisanProjekat = ServerKontroler.getInstanca().obrisiProjekat(projekatZaObrisati);
                     if(!uspesnoObrisanProjekat){
-                        throw new Exception("Doslo je do greske prilikom brisanja projekta!");
+                        throw new Exception("Sistem ne može da obriše projekat.");
                     }
                     break;
 //                case Operacije.DODAJ_ANGAZOVANJE:

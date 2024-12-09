@@ -293,6 +293,12 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
             LinkedList<Zaposleni> listaZaposlenihIzPretrage = KlijentKontrolerZaposleni.getInstanca().pronadjiPaVratiZaposlene(pretraga);
             ModelTabeleZaposleni mtz = (ModelTabeleZaposleni) tblZaposleni.getModel();
             mtz.setListaZaposlenih(listaZaposlenihIzPretrage);
+            LinkedList<Zaposleni> vracenaLista = mtz.vratiListu();
+            if(vracenaLista.size() == 0){
+                JOptionPane.showMessageDialog(rootPane, "Sistem ne može da nađe zaposlenog po zadatoj vrednosti.", "Neuspešna pretraga.", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Sistem je našao zaposlenog po zadatoj vrednosti.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -317,7 +323,7 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
             Zaposleni izmenjenZaposleni = new Zaposleni();
             if (proveriNovePodatke(izmenjenZaposleni)) {
                 KlijentKontrolerZaposleni.getInstanca().izmeniZaposlenog(izmenjenZaposleni);
-                JOptionPane.showMessageDialog(rootPane, "Uspesno ste izmenili podatke zaposlenog.");
+                JOptionPane.showMessageDialog(rootPane, "Sistem je zapamtio zaposlenog.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
                 LinkedList<Zaposleni> listaSvihZaposlnih = KlijentKontrolerZaposleni.getInstanca().vratiZaposlene();
                 ModelTabeleZaposleni mtz = (ModelTabeleZaposleni) tblZaposleni.getModel();
                 mtz.setListaZaposlenih(listaSvihZaposlnih);
@@ -325,8 +331,8 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, "Zaposleni " + odabraniZaposleni + " nije izmenjen.", "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
-
+            //JOptionPane.showMessageDialog(rootPane, "Zaposleni " + odabraniZaposleni + " nije izmenjen.", "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnIzmeniZaposlenogActionPerformed
@@ -356,10 +362,12 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
                 popuniPodatkeUcitanogZaposlenog(ucitaniZaposleni);
                 btnIzmeniZaposlenog.setEnabled(true);
                 btnObrisiZaposlenog.setEnabled(true);
+                JOptionPane.showMessageDialog(rootPane, "Sistem je učitao zaposlenog.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception ex){
             try {
                 ex.printStackTrace();
+                //JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
                 JOptionPane.showMessageDialog(rootPane, "Zaposleni " + odabraniZaposleni + " je obrisan.", "Doslo je do greske.", JOptionPane.INFORMATION_MESSAGE);
                 LinkedList<Zaposleni> listaSvihZaposlnih = KlijentKontrolerZaposleni.getInstanca().vratiZaposlene();
                 if (listaSvihZaposlnih.size() > 0) {
@@ -378,6 +386,7 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
     private void btnObrisiZaposlenogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiZaposlenogActionPerformed
         try {
             KlijentKontrolerZaposleni.getInstanca().obrisiZaposlenog(odabraniZaposleni);
+            JOptionPane.showMessageDialog(rootPane, "Sistem је obrisao zaposlenog: " + odabraniZaposleni, "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
             LinkedList<Zaposleni> listaSvihZaposlnih = KlijentKontrolerZaposleni.getInstanca().vratiZaposlene();
             if (listaSvihZaposlnih.size() > 0) {
                 ModelTabeleZaposleni mtz = (ModelTabeleZaposleni) tblZaposleni.getModel();
@@ -386,7 +395,6 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Obrisali ste sve zaposlene. Ne postoji nijedan zaposleni za prikaz.");
                 this.dispose();
             }
-            JOptionPane.showMessageDialog(rootPane, "Uspesno ste obrisali zaposlenog: " + odabraniZaposleni);
             txtZaposleniID.setText("");
             txtZaposleniIme.setText("");
             txtZaposleniPrezime.setText("");
@@ -400,7 +408,7 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, "Zaposleni " + odabraniZaposleni + " nije obrisan.", "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
-
+            //JOptionPane.showMessageDialog(rootPane, "Sistem ne može da obriše zaposlenog.", "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnObrisiZaposlenogActionPerformed

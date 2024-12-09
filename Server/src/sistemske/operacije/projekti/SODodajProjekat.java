@@ -7,6 +7,7 @@ package sistemske.operacije.projekti;
 import domen.Angazovanje;
 import domen.OpstiDomenskiObjekat;
 import domen.Projekat;
+import domen.Stanje;
 import domen.Zaposleni;
 import java.util.LinkedList;
 import sistemske.operacije.SOOpsteIzvrsenje;
@@ -19,7 +20,7 @@ public class SODodajProjekat extends SOOpsteIzvrsenje{
 
     @Override
     public boolean proveriOgranicenja(OpstiDomenskiObjekat odo) throws Exception {
-        //provera da li je prosledjeni objekat instanca klase Zaposleni
+
         if (odo instanceof Projekat projekat) {
             if (projekat.getNazivProjekta() == null 
                 || projekat.getPocetakRealizacije() == null
@@ -38,6 +39,7 @@ public class SODodajProjekat extends SOOpsteIzvrsenje{
     public boolean izvrsiSO(OpstiDomenskiObjekat odo) throws Exception {
         try {
             Projekat noviProjekat = (Projekat) odo;
+            noviProjekat.setStanje(Stanje.Aktivan);
             boolean projekatSacuvan = dbb.zapamti(noviProjekat);
             if (projekatSacuvan) {
                 int projekatId = dbb.vratiPoslednjiPrimarniKljuc(noviProjekat);
@@ -47,7 +49,6 @@ public class SODodajProjekat extends SOOpsteIzvrsenje{
                     Angazovanje angazovanje = new Angazovanje(0, noviProjekat, zaposleni, noviProjekat.getPocetakRealizacije(), null);
                     dbb.zapamti(angazovanje);
                 }
-                dbb.azurirajStanjeProjektaNaAktivan(noviProjekat);
             }
             return true;
         } catch (Exception ex) {

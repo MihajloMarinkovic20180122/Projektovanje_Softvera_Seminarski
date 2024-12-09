@@ -323,6 +323,12 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             LinkedList<Projekat> listaProjekataIzPretrage = KlijentKontrolerProjekat.getInstanca().pronadjiPaVratiProjekte(pretraga);
             ModelTabeleProjekti mtp =  (ModelTabeleProjekti) tblProjekti.getModel();
             mtp.setListaProjekata(listaProjekataIzPretrage);
+            LinkedList<Projekat> vracenaLista = mtp.vratiListu();
+            if(vracenaLista.size() == 0){
+                JOptionPane.showMessageDialog(rootPane, "Sistem ne može da nađe projekat po zadatoj vrednosti.", "Neuspešna pretraga.", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Sistem je našao projekat po zadatoj vrednosti.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -335,6 +341,10 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             Projekat projekat = mtp.vratiOdabraniProjekat(red);
             
             KlijentKontrolerProjekat.getInstanca().obrisiProjekat(projekat);
+            
+            //JOptionPane.showMessageDialog(rootPane, "Uspesno ste obrisali projekat: " + projekat);
+            JOptionPane.showMessageDialog(rootPane, "Sistem je obrisao projekat.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
+            
             mtp.setListaProjekata(KlijentKontrolerProjekat.getInstanca().vratiProjekte());
             
             txtIdProjekta.setText("");
@@ -349,11 +359,11 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             btnObrisiProjekat.setEnabled(false);
             btnIzmeniProjekat.setEnabled(false);
             
-            JOptionPane.showMessageDialog(rootPane, "Uspesno ste obrisali projekat: " + projekat);
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Greska pri brisanju projekta!", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, ex.getMessage(), "Greska pri brisanju projekta!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnObrisiProjekatActionPerformed
 
@@ -399,9 +409,24 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
     //            popuniPodatkeUcitanogZaposlenog(ucitaniZaposleni);
                 btnIzmeniProjekat.setEnabled(true);
                 btnObrisiProjekat.setEnabled(true);
+                JOptionPane.showMessageDialog(rootPane, "Sistem je učitao projekat.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception ex){
-            ex.printStackTrace();
+            try {
+                ex.printStackTrace();
+                //JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Projekat " + odabraniProjekat + " je obrisan.", "Doslo je do greske.", JOptionPane.INFORMATION_MESSAGE);
+                LinkedList<Projekat> listaSvihProjekata = KlijentKontrolerProjekat.getInstanca().vratiProjekte();
+                if (listaSvihProjekata.size() > 0) {
+                    ModelTabeleProjekti mtp =  (ModelTabeleProjekti) tblProjekti.getModel();
+                    mtp.setListaProjekata(listaSvihProjekata);
+                } else if(listaSvihProjekata.size() == 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Obrisali ste sve projekte. Ne postoji nijedan projekat za prikaz.");
+                    this.dispose();
+                }
+            } catch (Exception ex1) {
+                ex1.printStackTrace();
+            }
         }
     }//GEN-LAST:event_tblProjektiMouseClicked
 
@@ -410,7 +435,7 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             Projekat izmenjeniProjekat = new Projekat();
             if(proveriNovePodatke(izmenjeniProjekat)){
                 KlijentKontrolerProjekat.getInstanca().izmeniProjekat(izmenjeniProjekat);
-                JOptionPane.showMessageDialog(rootPane, "Uspesno ste izmenili podatke projekta.");
+                JOptionPane.showMessageDialog(rootPane, "Sistem je zapamtio projekat.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
                 LinkedList<Projekat> listaSvihProjekata = KlijentKontrolerProjekat.getInstanca().vratiProjekte();
                 ModelTabeleProjekti mtp = (ModelTabeleProjekti) tblProjekti.getModel();
                 mtp.setListaProjekata(listaSvihProjekata);
@@ -418,6 +443,7 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             }
         } catch (Exception ex) {
             Logger.getLogger(ObrisiProjekatForma.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Sistem ne može da zapamti projekta.", "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnIzmeniProjekatActionPerformed
 

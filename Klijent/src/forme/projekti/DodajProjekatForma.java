@@ -219,6 +219,8 @@ public class DodajProjekatForma extends javax.swing.JDialog {
                     Projekat projekat = new Projekat(0, naziv, datumPocetkaRealizacije, rukovodilac, prioritet, Stanje.Kreiran, listaZaposlenih, null);
                     KlijentKontrolerProjekat.getInstanca().dodajProjekat(projekat);
                     
+                    JOptionPane.showMessageDialog(rootPane, "Sistem je zapamtio projekat.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
+
                     txtNazivProjekta.setText("");
                     txtPocetakRealizacijeProjekta.setText("");
                     cmbRukovodilacProjekta.setSelectedIndex(0);
@@ -226,13 +228,14 @@ public class DodajProjekatForma extends javax.swing.JDialog {
                     cmbZaposleni.setSelectedIndex(0);
                     mtz.setListaZaposlenih(new LinkedList<>());
 
-                    JOptionPane.showMessageDialog(rootPane, "Uspesno ste sačuvali projekat.");
-                    
                     this.dispose();
                 }
             }
             Projekat projekat = new Projekat(0, naziv, datumPocetkaRealizacije, rukovodilac, prioritet, Stanje.Kreiran, listaZaposlenih, null);
             KlijentKontrolerProjekat.getInstanca().dodajProjekat(projekat);
+            
+            JOptionPane.showMessageDialog(rootPane, "Sistem je zapamtio projekat.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
+            
             txtNazivProjekta.setText("");
             txtPocetakRealizacijeProjekta.setText("");
             cmbRukovodilacProjekta.setSelectedIndex(0);
@@ -240,13 +243,11 @@ public class DodajProjekatForma extends javax.swing.JDialog {
             cmbZaposleni.setSelectedIndex(0);
             mtz.setListaZaposlenih(new LinkedList<>());
 
-            JOptionPane.showMessageDialog(rootPane, "Uspesno ste sačuvali projekat.");
-
             this.dispose();
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnDodajProjekatActionPerformed

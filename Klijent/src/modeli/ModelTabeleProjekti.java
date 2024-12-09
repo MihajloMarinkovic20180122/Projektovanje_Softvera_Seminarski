@@ -60,4 +60,8 @@ public class ModelTabeleProjekti extends AbstractTableModel {
         return listaProjekata.get(red);
     }
     
+    public LinkedList<Projekat> vratiListu() {
+        return listaProjekata;
+    }
+    
 }

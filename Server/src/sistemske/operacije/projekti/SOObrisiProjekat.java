@@ -18,7 +18,7 @@ public class SOObrisiProjekat extends SOOpsteIzvrsenje{
 
     @Override
     public boolean proveriOgranicenja(OpstiDomenskiObjekat odo) throws Exception {
-        //provera da li je prosledjeni objekat instanca klase Projekat
+
         if (odo instanceof Projekat projekat) {
             if (projekat.getNazivProjekta() == null 
                 || projekat.getPocetakRealizacije() == null
@@ -38,7 +38,19 @@ public class SOObrisiProjekat extends SOOpsteIzvrsenje{
         Projekat projekatZaBrisanje = (Projekat) odo;
 
         boolean angazovanjaObrisana = true;
-        LinkedList<Angazovanje> listaAngazovanjaZaProjekat = dbb.vratiAngazovanjaProjekta(projekatZaBrisanje);
+        
+        LinkedList<OpstiDomenskiObjekat> listaAngazovanjaOpsta = dbb.vratiSve(new Angazovanje());
+        LinkedList<Angazovanje> listaAngazovanja = new LinkedList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaAngazovanjaOpsta) {
+            listaAngazovanja.add((Angazovanje) opstiDomenskiObjekat);
+        }
+        LinkedList<Angazovanje> listaAngazovanjaZaProjekat = new LinkedList<>();
+        for (Angazovanje angazovanje1 : listaAngazovanja) {
+            if(angazovanje1.getProjekat().getProjekatId() == projekatZaBrisanje.getProjekatId()){
+                listaAngazovanjaZaProjekat.add(angazovanje1);
+            }
+        }
+        
         for (Angazovanje angazovanje : listaAngazovanjaZaProjekat) {
             angazovanjaObrisana = dbb.obrisi(angazovanje);
         }

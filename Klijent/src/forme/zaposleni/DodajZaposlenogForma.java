@@ -8,6 +8,7 @@ import domen.OrganizacionaCelina;
 import domen.RadnoMesto;
 import domen.Zaposleni;
 import java.io.IOException;
+import java.net.SocketException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,7 +36,12 @@ public class DodajZaposlenogForma extends javax.swing.JDialog {
             setLocationRelativeTo(null);
             setTitle("Dodavanje zaposlenog");
             popuniCmbOrganizacionaCelina();
-        } catch (Exception ex) {
+        } catch (SocketException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Server nije pokrenut.");
+            System.exit(0);
+        }
+        catch (Exception ex) {
             Logger.getLogger(DodajZaposlenogForma.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -199,13 +205,14 @@ public class DodajZaposlenogForma extends javax.swing.JDialog {
 
             KlijentKontrolerZaposleni.getInstanca().dodajZaposlenog(zaposleni);
             
+            JOptionPane.showMessageDialog(rootPane, "Sistem je zapamtio zaposlenog.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
+
             txtZaposleniIme.setText("");
             txtZaposleniPrezime.setText("");
             txtZaposleniEmail.setText("");
             txtZaposleniDatumZaposlenja.setText("");
             cmbOrganizacionaCelina.setSelectedIndex(0);
             cmbRadnoMesto.setSelectedIndex(0);
-            JOptionPane.showMessageDialog(rootPane, "Uspesno ste dodali zaposlenog.");
             
         }  catch (Exception ex) {
             ex.printStackTrace();

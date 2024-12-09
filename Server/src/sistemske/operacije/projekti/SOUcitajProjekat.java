@@ -21,7 +21,7 @@ public class SOUcitajProjekat extends SOOpsteIzvrsenje{
     
     @Override
     public boolean proveriOgranicenja(OpstiDomenskiObjekat odo) throws Exception {
-        //provera da li je prosledjeni objekat instanca klase Projekat
+
         if (odo instanceof Projekat projekat) {
             if (projekat.getNazivProjekta() == null 
                 || projekat.getPocetakRealizacije() == null
@@ -39,7 +39,18 @@ public class SOUcitajProjekat extends SOOpsteIzvrsenje{
     @Override
     public boolean izvrsiSO(OpstiDomenskiObjekat odo) throws Exception {
         ucitaniProjekat = (Projekat) dbb.ucitaj(odo).get(0);
-        LinkedList<Angazovanje> listaAngazovanjaZaProjekat = dbb.vratiAngazovanjaProjekta(ucitaniProjekat);
+        LinkedList<OpstiDomenskiObjekat> listaAngazovanjaOpsta = dbb.vratiSve(new Angazovanje());
+        LinkedList<Angazovanje> listaAngazovanja = new LinkedList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaAngazovanjaOpsta) {
+            listaAngazovanja.add((Angazovanje) opstiDomenskiObjekat);
+        }
+        LinkedList<Angazovanje> listaAngazovanjaZaProjekat = new LinkedList<>();
+        for (Angazovanje angazovanje1 : listaAngazovanja) {
+            if(angazovanje1.getProjekat().getProjekatId() == ucitaniProjekat.getProjekatId()){
+                listaAngazovanjaZaProjekat.add(angazovanje1);
+            }
+        }
+
         LinkedList<Zaposleni> listaZaposlenihNaProjektu = new LinkedList<>();
             for (Angazovanje angazovanje : listaAngazovanjaZaProjekat) {
                 Zaposleni z = new Zaposleni();

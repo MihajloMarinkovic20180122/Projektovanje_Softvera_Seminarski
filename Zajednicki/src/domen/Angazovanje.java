@@ -109,12 +109,15 @@ public class Angazovanje implements OpstiDomenskiObjekat{
 
     @Override
     public String join() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "JOIN zaposleni z ON a.zaposleniId = z.zaposleniId "
+             + "JOIN organizacionacelina oc ON z.organizacionaCelinaId = oc.organizacionaCelinaId "
+             + "JOIN radnomesto rm ON z.radnoMestoId = rm.radnoMestoId "
+             + "JOIN projekat p ON a.projekatId = p.projekatId";
     }
 
     @Override
     public String uslov() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "WHERE a.projekatId = " + projekat.getProjekatId();
     }
 
     @Override
