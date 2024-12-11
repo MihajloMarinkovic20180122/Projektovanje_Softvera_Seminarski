@@ -187,9 +187,16 @@ public class DodajZaposlenogForma extends javax.swing.JDialog {
                 throw new Exception("Niste uneli prezime.");
             }
             
-            String email = txtZaposleniEmail.getText();
+            String email = txtZaposleniEmail.getText().trim();
             if(email.isEmpty()){
                 throw new Exception("Niste uneli email.");
+            }
+            
+            LinkedList<Zaposleni> listaZaposlenih = KlijentKontrolerZaposleni.getInstanca().vratiZaposlene();
+            for (Zaposleni zaposleni : listaZaposlenih) {
+                if(zaposleni.getEmail().equals(email)){
+                    throw new Exception("Zaposleni sa tim Email-om vec postoji.");
+                }
             }
             
             if(txtZaposleniDatumZaposlenja.getText().contains(" ")){

@@ -122,8 +122,8 @@ public class ServerskaForma extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelAdministratoriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnIzlogujAdministratora)
-                    .addComponent(btnIzlogujSve))
+                    .addComponent(btnIzlogujAdministratora, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIzlogujSve, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -168,8 +168,10 @@ public class ServerskaForma extends javax.swing.JFrame {
             System.out.println("Server je pokrenut.");
             btnPokreniServer.setEnabled(false);
             btnZaustaviServer.setEnabled(true);
-            btnIzlogujAdministratora.setEnabled(true);
-            btnIzlogujSve.setEnabled(true);
+            //btnIzlogujAdministratora.setEnabled(true);
+            //btnIzlogujSve.setEnabled(true);
+            btnIzlogujSve.setVisible(false);
+            btnIzlogujAdministratora.setVisible(false);
         } catch (Exception ex) {
             Logger.getLogger(ServerskaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -181,8 +183,8 @@ public class ServerskaForma extends javax.swing.JFrame {
             btnZaustaviServer.setEnabled(false);
             btnPokreniServer.setEnabled(true);
             panelAdministratori.setVisible(false);
-            btnIzlogujAdministratora.setEnabled(false);
-            btnIzlogujSve.setEnabled(false);
+            //btnIzlogujAdministratora.setEnabled(false);
+            //btnIzlogujSve.setEnabled(false);
         }
     }//GEN-LAST:event_btnZaustaviServerActionPerformed
 

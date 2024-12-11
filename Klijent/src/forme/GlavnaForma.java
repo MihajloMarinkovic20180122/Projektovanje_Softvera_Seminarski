@@ -10,7 +10,6 @@ import forme.projekti.DodajProjekatForma;
 import forme.projekti.ObrisiProjekatForma;
 import forme.zaposleni.DodajZaposlenogForma;
 import forme.zaposleni.IzmeniZaposlenogForma;
-import forme.zaposleni.ObrisiZaposlenogForma;
 import javax.swing.JOptionPane;
 import kontroler.KlijentKontroler;
 import kontroler.KlijentKontrolerAdministrator;
