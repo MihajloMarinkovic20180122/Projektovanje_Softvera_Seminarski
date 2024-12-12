@@ -42,7 +42,11 @@ public class SODodajZaposlenog extends SOOpsteIzvrsenje{
     @Override
     public boolean izvrsiSO(OpstiDomenskiObjekat odo) throws Exception {
         Zaposleni zaposleniZaDodati = (Zaposleni) odo;
-        boolean dodatZaposleni = dbb.zapamti(odo);
+        int zaposleniId = dbb.zapamti(zaposleniZaDodati);
+        boolean dodatZaposleni = false;
+        if(zaposleniId > 0){
+            dodatZaposleni = true;
+        }
         RadnoMesto rm = zaposleniZaDodati.getRadnoMesto();
         rm.setBrojZaposlenih(rm.getBrojZaposlenih() + 1);
         dbb.izmeni(rm);

@@ -70,7 +70,10 @@ public class SOIzmeniProjekat extends SOOpsteIzvrsenje{
                 for (Zaposleni zaposleni : izmenjeniProjekat.getZaposleni()) {
                     if(!listaZaposlenihNaProjektu.contains(zaposleni)){
                         Angazovanje angazovanje = new Angazovanje(0, izmenjeniProjekat, zaposleni, izmenjeniProjekat.getPocetakRealizacije(), null);
-                        angazovanjaIzmenjena = dbb.zapamti(angazovanje);
+                        int angazovanjeId = dbb.zapamti(angazovanje);
+                        if (angazovanjeId > 0) {
+                            angazovanjaIzmenjena = true;
+                        }
                     }
                 
             }

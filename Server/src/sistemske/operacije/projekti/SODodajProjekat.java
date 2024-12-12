@@ -40,9 +40,8 @@ public class SODodajProjekat extends SOOpsteIzvrsenje{
         try {
             Projekat noviProjekat = (Projekat) odo;
             noviProjekat.setStanje(Stanje.Aktivan);
-            boolean projekatSacuvan = dbb.zapamti(noviProjekat);
-            if (projekatSacuvan) {
-                int projekatId = dbb.vratiPoslednjiPrimarniKljuc(noviProjekat);
+            int projekatId = dbb.zapamti(noviProjekat);
+            if (projekatId > 0) {
                 noviProjekat.setProjekatId(projekatId);
                 LinkedList<Zaposleni> listaZaposlenih = noviProjekat.getZaposleni();
                 for (Zaposleni zaposleni : listaZaposlenih) {

@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import kontroler.KlijentKontroler;
 import kontroler.KlijentKontrolerZaposleni;
@@ -181,15 +182,24 @@ public class DodajZaposlenogForma extends javax.swing.JDialog {
             if(ime.isEmpty()){
                 throw new Exception("Niste uneli ime.");
             }
-            
+            if(!ime.matches("^[A-ZČĆŽŠĐ][a-zčćžšđ]+$")){
+                throw new Exception("Ime nije u ispravnom formatu.");
+            }
+
             String prezime = txtZaposleniPrezime.getText();
             if(prezime.isEmpty()){
                 throw new Exception("Niste uneli prezime.");
+            }
+            if(!prezime.matches("^[A-ZČĆŽŠĐ][a-zčćžšđ]+$")){
+                throw new Exception("Prezime nije u ispravnom formatu.");
             }
             
             String email = txtZaposleniEmail.getText().trim();
             if(email.isEmpty()){
                 throw new Exception("Niste uneli email.");
+            }
+            if(!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+              throw new Exception("Email nije u ispravnom formatu.");
             }
             
             LinkedList<Zaposleni> listaZaposlenih = KlijentKontrolerZaposleni.getInstanca().vratiZaposlene();
@@ -204,6 +214,9 @@ public class DodajZaposlenogForma extends javax.swing.JDialog {
             }
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
             Date datumZaposlenja = sdf.parse(txtZaposleniDatumZaposlenja.getText());
+            if(datumZaposlenja.after(new Date())){
+                throw new Exception("Datum zaposlenja ne sme biti u buducnosti.");
+            }
             
             OrganizacionaCelina organizacionaCelina = (OrganizacionaCelina) cmbOrganizacionaCelina.getSelectedItem();
             RadnoMesto radnoMesto = (RadnoMesto) cmbRadnoMesto.getSelectedItem();

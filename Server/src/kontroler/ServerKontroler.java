@@ -141,26 +141,5 @@ public class ServerKontroler {
         SOObrisiProjekat so = new SOObrisiProjekat();
         return so.sOOpsteIzvrsenje(projekatZaObrisati);
     }
-//
-//    public void dodajAngazovanje(Angazovanje angazovanje) throws Exception {
-//        DBBroker.getInstanca().dodajAngazovenjeIzAngazovanja(angazovanje);
-//    }
-//
-//    public LinkedList<Angazovanje> vratiAngazovanja() throws Exception {
-//        return DBBroker.getInstanca().vratiAngazovanja();
-//    }
-//
-//    
-
-    
-
-    
-
-    
-
-   
-
-    
-
     
 }

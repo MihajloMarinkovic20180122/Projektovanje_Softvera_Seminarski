@@ -87,13 +87,15 @@ public class DBBroker {
         return (LinkedList<OpstiDomenskiObjekat>) odo.vratiSve(rs);
     }
     
-    public boolean zapamti(OpstiDomenskiObjekat odo) throws SQLException {
+    public int zapamti(OpstiDomenskiObjekat odo) throws SQLException {
         //throw new Exception("greska.");
         String upit = "INSERT INTO " + odo.vratiNazivTabele() + " "
                 + odo.vratiNaziveKolonaTabele()+ " VALUES(" + odo.vratiVrednostiZaKreiranje() + ")";
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        int dodatiRedovi = ps.executeUpdate();
-        return dodatiRedovi > 0;
+        PreparedStatement ps = konekcija.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
+        ps.executeUpdate();
+        ResultSet tableKeys = ps.getGeneratedKeys();
+        tableKeys.next();
+        return tableKeys.getInt(1);
     }
     
     public boolean obrisi(OpstiDomenskiObjekat odo) throws SQLException {
@@ -124,16 +126,4 @@ public class DBBroker {
         return brojIzmenjenihRedova > 0;
     }
     
-    public int vratiPoslednjiPrimarniKljuc(OpstiDomenskiObjekat objekat) throws SQLException {
-        int maxId = 0;
-        String upit = "SELECT MAX(" + objekat.vratiNazivPrimarnogKljuca() + ") as maxId FROM " + objekat.vratiNazivTabele();
-        System.out.println(upit);
-        PreparedStatement ps = konekcija.prepareStatement(upit);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            maxId = rs.getInt("maxId");
-        }
-        return maxId;
-    }
-
 }

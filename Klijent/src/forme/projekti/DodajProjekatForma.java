@@ -184,7 +184,7 @@ public class DodajProjekatForma extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDodajProjekat)
+                .addComponent(btnDodajProjekat, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -205,6 +205,10 @@ public class DodajProjekatForma extends javax.swing.JDialog {
             
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
             Date datumPocetkaRealizacije = sdf.parse(txtPocetakRealizacijeProjekta.getText());
+            
+            if(datumPocetkaRealizacije.after(new Date())){
+                throw new Exception("Datum početka realizacije ne sme biti u buducnosti.");
+            }
 
             Zaposleni rukovodilac = (Zaposleni) cmbRukovodilacProjekta.getSelectedItem();
 
@@ -228,7 +232,9 @@ public class DodajProjekatForma extends javax.swing.JDialog {
                     cmbZaposleni.setSelectedIndex(0);
                     mtz.setListaZaposlenih(new LinkedList<>());
 
-                    this.dispose();
+                    return;
+                } else {
+                    return;
                 }
             }
             Projekat projekat = new Projekat(0, naziv, datumPocetkaRealizacije, rukovodilac, prioritet, Stanje.Kreiran, listaZaposlenih, null);
@@ -243,7 +249,7 @@ public class DodajProjekatForma extends javax.swing.JDialog {
             cmbZaposleni.setSelectedIndex(0);
             mtz.setListaZaposlenih(new LinkedList<>());
 
-            this.dispose();
+            return;
 
         } catch (Exception ex) {
             ex.printStackTrace();

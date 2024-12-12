@@ -8,9 +8,11 @@ import domen.OrganizacionaCelina;
 import domen.RadnoMesto;
 import domen.Zaposleni;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import kontroler.KlijentKontrolerZaposleni;
 import modeli.ModelTabeleZaposleni;
@@ -498,6 +500,10 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Polje Ime ne sme biti prazno.", "Greska pri izmeni zaposlenog!", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
+            if(!ime.matches("^[A-ZČĆŽŠĐ][a-zčćžšđ]+$")){
+                JOptionPane.showMessageDialog(null, "Ime nije u ispravnom formatu.", "Greska pri izmeni zaposlenog!", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
         izmenjenZaposleni.setIme(ime);
         
         String prezime = txtZaposleniPrezime.getText().trim();
@@ -505,11 +511,19 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Polje Prezime ne sme biti prazno.", "Greska pri izmeni zaposlenog!", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
+            if(!prezime.matches("^[A-ZČĆŽŠĐ][a-zčćžšđ]+$")){
+                JOptionPane.showMessageDialog(null, "Prezime nije u ispravnom formatu.", "Greska pri izmeni zaposlenog!", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
         izmenjenZaposleni.setPrezime(prezime);
         
         String email = txtZaposleniEmail.getText().trim();
             if (email.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Polje Email ne sme biti prazno.", "Greska pri izmeni zaposlenog!", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if(!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
+                JOptionPane.showMessageDialog(null, "Email nije u ispravnom formatu.", "Greska pri izmeni zaposlenog!", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             LinkedList<Zaposleni> listaZaposlenih = KlijentKontrolerZaposleni.getInstanca().vratiZaposlene();
@@ -522,6 +536,12 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
         izmenjenZaposleni.setEmail(email);
         
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
+        Date datumZaposlenja = sdf.parse(txtZaposleniDatumZaposlenja.getText());
+        if(datumZaposlenja.after(new Date())){
+            JOptionPane.showMessageDialog(null, "Datum zaposlenja ne sme biti u buducnosti.", "Greska pri izmeni zaposlenog!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
         izmenjenZaposleni.setDatumZaposlenja(sdf.parse(txtZaposleniDatumZaposlenja.getText()));
         
         izmenjenZaposleni.setOrganizacionaCelina((OrganizacionaCelina) cmbZaposleniOrganizacionaCelina.getSelectedItem());
