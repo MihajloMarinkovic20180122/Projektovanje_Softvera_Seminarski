@@ -7,7 +7,9 @@ package sistemske.operacije.projekti;
 import domen.Angazovanje;
 import domen.OpstiDomenskiObjekat;
 import domen.Projekat;
+import domen.Stanje;
 import domen.Zaposleni;
+import java.util.Date;
 import java.util.LinkedList;
 import sistemske.operacije.SOOpsteIzvrsenje;
 
@@ -61,6 +63,9 @@ public class SOIzmeniProjekat extends SOOpsteIzvrsenje{
                     z.setDatumZaposlenja(angazovanje.getZaposleni().getDatumZaposlenja());
                     z.setOrganizacionaCelina(angazovanje.getZaposleni().getOrganizacionaCelina());
                     z.setRadnoMesto(angazovanje.getZaposleni().getRadnoMesto());
+                    if(izmenjeniProjekat.getStanje() == Stanje.Otkazan || izmenjeniProjekat.getStanje() == Stanje.Realizovan){
+                        dbb.izmeni(angazovanje);
+                    }
                     if(!izmenjeniProjekat.getZaposleni().contains(z)){
                         angazovanjaIzmenjena = dbb.obrisi(angazovanje);
                     }else{
@@ -69,7 +74,14 @@ public class SOIzmeniProjekat extends SOOpsteIzvrsenje{
             }
                 for (Zaposleni zaposleni : izmenjeniProjekat.getZaposleni()) {
                     if(!listaZaposlenihNaProjektu.contains(zaposleni)){
-                        Angazovanje angazovanje = new Angazovanje(0, izmenjeniProjekat, zaposleni, izmenjeniProjekat.getPocetakRealizacije(), null);
+                        Angazovanje angazovanje = new Angazovanje();
+                        angazovanje.setAngazovanjeId(0);
+                        angazovanje.setProjekat(izmenjeniProjekat);
+                        angazovanje.setZaposleni(zaposleni);
+                        angazovanje.setPocetakAngazovanja(izmenjeniProjekat.getPocetakRealizacije());
+                        if(izmenjeniProjekat.getStanje() == Stanje.Otkazan || izmenjeniProjekat.getStanje() == Stanje.Realizovan){
+                            angazovanje.setKrajAngazovanja(new Date());
+                        }
                         int angazovanjeId = dbb.zapamti(angazovanje);
                         if (angazovanjeId > 0) {
                             angazovanjaIzmenjena = true;

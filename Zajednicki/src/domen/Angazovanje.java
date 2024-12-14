@@ -89,17 +89,21 @@ public class Angazovanje implements OpstiDomenskiObjekat{
 
     @Override
     public String vratiNaziveKolonaTabele() {
-        return "(zaposleniId, projekatId, pocetakAngazovanja)";
+        return "(zaposleniId, projekatId, pocetakAngazovanja, krajAngazovanja)";
     }
 
     @Override
     public String vratiVrednostiZaKreiranje() {
-        return "" + zaposleni.getZaposleniId() + "," + projekat.getProjekatId() + ",'" + new java.sql.Date(pocetakAngazovanja.getTime()) + "'";
+        if(krajAngazovanja != null){
+            return "" + zaposleni.getZaposleniId() + "," + projekat.getProjekatId() + ",'" + new java.sql.Date(pocetakAngazovanja.getTime()) + "','" + new java.sql.Date(krajAngazovanja.getTime()) + "'";
+        } else {
+            return "" + zaposleni.getZaposleniId() + "," + projekat.getProjekatId() + ",'" + new java.sql.Date(pocetakAngazovanja.getTime()) + "'," + null;
+        }
     }
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "krajAngazovanja='" + new java.sql.Date(new Date().getTime()) + "'";
     }
 
     @Override

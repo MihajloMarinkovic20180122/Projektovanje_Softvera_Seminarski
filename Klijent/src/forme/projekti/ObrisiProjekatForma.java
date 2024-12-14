@@ -443,7 +443,7 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
             }
         } catch (Exception ex) {
             Logger.getLogger(ObrisiProjekatForma.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(rootPane, "Sistem ne može da zapamti projekta.", "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Sistem ne može da zapamti projekat.", "Doslo je do greske!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnIzmeniProjekatActionPerformed
 
