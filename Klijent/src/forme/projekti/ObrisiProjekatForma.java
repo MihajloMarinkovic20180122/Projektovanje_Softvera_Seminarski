@@ -545,11 +545,11 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
         }
             
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
-        Date pocetakRealizacijeProjekta = sdf.parse(txtPocetakRealizacijeProjekta.getText());
-        if(pocetakRealizacijeProjekta.after(new Date())){
-            JOptionPane.showMessageDialog(null, "Datum početka realizacije projekta ne sme biti u buducnosti.", "Greska pri izmeni projekta!", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+//        Date pocetakRealizacijeProjekta = sdf.parse(txtPocetakRealizacijeProjekta.getText());
+//        if(pocetakRealizacijeProjekta.after(new Date())){
+//            JOptionPane.showMessageDialog(null, "Datum početka realizacije projekta ne sme biti u buducnosti.", "Greska pri izmeni projekta!", JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        }
         izmenjeniProjekat.setPocetakRealizacije(sdf.parse(txtPocetakRealizacijeProjekta.getText()));
 
         izmenjeniProjekat.setRukovodilac((Zaposleni) cmbRukovodilacProjekta.getSelectedItem());

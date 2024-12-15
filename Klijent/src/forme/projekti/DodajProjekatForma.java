@@ -206,9 +206,9 @@ public class DodajProjekatForma extends javax.swing.JDialog {
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
             Date datumPocetkaRealizacije = sdf.parse(txtPocetakRealizacijeProjekta.getText());
             
-            if(datumPocetkaRealizacije.after(new Date())){
-                throw new Exception("Datum početka realizacije ne sme biti u buducnosti.");
-            }
+//            if(datumPocetkaRealizacije.after(new Date())){
+//                throw new Exception("Datum početka realizacije ne sme biti u buducnosti.");
+//            }
 
             Zaposleni rukovodilac = (Zaposleni) cmbRukovodilacProjekta.getSelectedItem();
 
