@@ -57,7 +57,6 @@ public class ServerKontroler {
         SOLogin so = new SOLogin();
         so.sOOpsteIzvrsenje(administrator);
         return so.getUlogovani();
-        //return DBBroker.getInstanca().login(administrator);
     }
 
     public LinkedList<OrganizacionaCelina> vratiOrganizacioneCeline() throws Exception {

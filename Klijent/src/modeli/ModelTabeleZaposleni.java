@@ -15,7 +15,6 @@ import javax.swing.table.AbstractTableModel;
 public class ModelTabeleZaposleni extends AbstractTableModel{
 
     LinkedList<Zaposleni> listaZaposlenih = new LinkedList<>();
-    //String[] kolone = {"Ime","Prezime","Email","Datum Zaposlenja", "Organizaciona Celina", "Radno Mesto"};
     String[] kolone = {"Ime","Prezime","Email", "Radno Mesto"};
 
     public void setListaZaposlenih(LinkedList<Zaposleni> listaZaposlenih) {

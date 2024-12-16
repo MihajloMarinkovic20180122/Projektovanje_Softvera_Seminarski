@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import kontroler.KlijentKontroler;
 import kontroler.KlijentKontrolerProjekat;
 import kontroler.KlijentKontrolerZaposleni;
 import modeli.ModelTabeleZaposleni;
@@ -205,10 +204,6 @@ public class DodajProjekatForma extends javax.swing.JDialog {
             
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
             Date datumPocetkaRealizacije = sdf.parse(txtPocetakRealizacijeProjekta.getText());
-            
-//            if(datumPocetkaRealizacije.after(new Date())){
-//                throw new Exception("Datum početka realizacije ne sme biti u buducnosti.");
-//            }
 
             Zaposleni rukovodilac = (Zaposleni) cmbRukovodilacProjekta.getSelectedItem();
 

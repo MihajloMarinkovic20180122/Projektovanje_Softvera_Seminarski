@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import konstante.Konstante;
-import kontroler.KlijentKontroler;
 import kontroler.KlijentKontrolerLogin;
 import sesija.Sesija;
 

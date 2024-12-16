@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import kontroler.KlijentKontroler;
 import kontroler.KlijentKontrolerZaposleni;
 import kontroler.OpstiKlijentskiKontroler;
 

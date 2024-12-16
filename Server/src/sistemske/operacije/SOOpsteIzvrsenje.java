@@ -14,7 +14,6 @@ import java.sql.SQLException;
  */
 public abstract class SOOpsteIzvrsenje {
     public DBBroker dbb = new DBBroker();
-    //template metod  patern
     synchronized public boolean sOOpsteIzvrsenje(OpstiDomenskiObjekat odo) throws SQLException{
         boolean signal = false;
         try {

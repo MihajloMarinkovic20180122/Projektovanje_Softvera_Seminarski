@@ -23,7 +23,6 @@ import konstante.Konstante;
 public class ServerskaNit extends Thread{
 
     ServerSocket ss;
-    //LinkedList<Administrator> ulogovani;
     int maxBrojAdministratora;
     LinkedList<ObradaKlijentskihZahtevaNit> listaKlijentskihNiti;
 
@@ -34,7 +33,6 @@ public class ServerskaNit extends Thread{
         int portServera = Integer.parseInt(parametriServera.getProperty(Konstante.PORT_SERVERA_KEY));
         this.ss = new ServerSocket(portServera);
         this.maxBrojAdministratora = maxBrojAdministratora;
-        //this.ulogovani = new LinkedList<Administrator>();
         this.listaKlijentskihNiti = new LinkedList<>();
     }
     

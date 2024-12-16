@@ -27,11 +27,6 @@ public class SOIzmeniZaposlenog extends SOOpsteIzvrsenje{
                 || zaposleni.getRadnoMesto() == null) {
                 return false;   
             }
-            //Proveri da li postoji zaposleni sa tim email u bazi
-//            LinkedList<OpstiDomenskiObjekat> listaZaposlenih = dbb.vratiSve(odo);
-//            if (listaZaposlenih.contains(odo)) {
-//                return false;  
-//            }
         } else {
             return false;
         }

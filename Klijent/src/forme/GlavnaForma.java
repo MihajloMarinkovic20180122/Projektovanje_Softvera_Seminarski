@@ -4,14 +4,11 @@
  */
 package forme;
 
-import forme.angazovanja.DodajAngazovanjeForma;
-import forme.angazovanja.ObrisiAngazovanjeForma;
 import forme.projekti.DodajProjekatForma;
 import forme.projekti.ObrisiProjekatForma;
 import forme.zaposleni.DodajZaposlenogForma;
 import forme.zaposleni.IzmeniZaposlenogForma;
 import javax.swing.JOptionPane;
-import kontroler.KlijentKontroler;
 import kontroler.KlijentKontrolerAdministrator;
 import sesija.Sesija;
 
@@ -180,11 +177,9 @@ public class GlavnaForma extends javax.swing.JFrame{
     }//GEN-LAST:event_menuItemObrisiProjekatActionPerformed
 
     private void btnDodajAngazovanjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajAngazovanjeActionPerformed
-        new DodajAngazovanjeForma(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_btnDodajAngazovanjeActionPerformed
 
     private void menuItemObrisiAngazovanjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemObrisiAngazovanjeActionPerformed
-        new ObrisiAngazovanjeForma(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_menuItemObrisiAngazovanjeActionPerformed
 
     private void menuItemIzmeniZaposlenogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemIzmeniZaposlenogActionPerformed

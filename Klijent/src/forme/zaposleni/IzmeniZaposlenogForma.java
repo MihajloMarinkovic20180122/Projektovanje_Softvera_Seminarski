@@ -309,19 +309,6 @@ public class IzmeniZaposlenogForma extends javax.swing.JDialog {
 
     private void btnIzmeniZaposlenogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniZaposlenogActionPerformed
         try {
-//            KlijentKontrolerZaposleni.getInstanca().obrisiZaposlenog(odabraniZaposleni);
-//            LinkedList<Zaposleni> listaSvihZaposlnih = KlijentKontrolerZaposleni.getInstanca().vratiZaposlene();
-//            ModelTabeleZaposleni mtz = (ModelTabeleZaposleni) tblZaposleni.getModel();
-//            mtz.setListaZaposlenih(listaSvihZaposlnih);
-//            JOptionPane.showMessageDialog(rootPane, "Uspesno ste izmenili podatke zaposlenog: " + odabraniZaposleni);
-//            txtZaposleniID.setText("");
-//            txtZaposleniIme.setText("");
-//            txtZaposleniPrezime.setText("");
-//            txtZaposleniEmail.setText("");
-//            txtZaposleniDatumZaposlenja.setText("");
-//            cmbZaposleniOrganizacionaCelina.setSelectedIndex(-1);
-//            cmbZaposleniRadnoMesto.setSelectedIndex(-1);
-//            btnIzmeniZaposlenog.setEnabled(false);
             Zaposleni izmenjenZaposleni = new Zaposleni();
             if (proveriNovePodatke(izmenjenZaposleni)) {
                 KlijentKontrolerZaposleni.getInstanca().izmeniZaposlenog(izmenjenZaposleni);

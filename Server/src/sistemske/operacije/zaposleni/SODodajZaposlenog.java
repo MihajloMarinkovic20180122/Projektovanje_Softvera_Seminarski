@@ -18,7 +18,6 @@ public class SODodajZaposlenog extends SOOpsteIzvrsenje{
 
     @Override
     public boolean proveriOgranicenja(OpstiDomenskiObjekat odo) throws Exception {
-        //provera da li je prosledjeni objekat instanca klase Zaposleni
         if (odo instanceof Zaposleni zaposleni) {
             if (zaposleni.getIme() == null 
                 || zaposleni.getPrezime() == null
@@ -28,7 +27,6 @@ public class SODodajZaposlenog extends SOOpsteIzvrsenje{
                 || zaposleni.getRadnoMesto()== null) {
                 return false;   
             }
-            //Proveri da li postoji zaposleni sa tim email u bazi
             LinkedList<OpstiDomenskiObjekat> listaZaposlenih = dbb.vratiSve(odo);
             if (listaZaposlenih.contains(odo)) {
                 return false;  

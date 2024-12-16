@@ -16,7 +16,6 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import kontroler.KlijentKontroler;
 import kontroler.KlijentKontrolerProjekat;
 import kontroler.KlijentKontrolerZaposleni;
 import modeli.ModelTabeleProjekti;
@@ -403,10 +402,6 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
                 odabraniProjekat = mtp.vratiOdabraniProjekat(red);
                 Projekat ucitaniProjekat = KlijentKontrolerProjekat.getInstanca().ucitajProjekat(odabraniProjekat);
                 popuniPodatkeUcitanogProjekta(ucitaniProjekat);
-                //ModelTabeleZaposleni mtz = (ModelTabeleZaposleni) tblZaposleni.getModel();
-                //odabraniZaposleni = mtz.vratiOdabranogZaposlenog(red);
-                //Zaposleni ucitaniZaposleni = KlijentKontrolerZaposleni.getInstanca().ucitajZaposlenog(odabraniZaposleni);
-    //            popuniPodatkeUcitanogZaposlenog(ucitaniZaposleni);
                 btnIzmeniProjekat.setEnabled(true);
                 btnObrisiProjekat.setEnabled(true);
                 JOptionPane.showMessageDialog(rootPane, "Sistem je učitao projekat.", "Uspešno izvršeno.", JOptionPane.INFORMATION_MESSAGE);
@@ -545,11 +540,6 @@ public class ObrisiProjekatForma extends javax.swing.JDialog {
         }
             
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
-//        Date pocetakRealizacijeProjekta = sdf.parse(txtPocetakRealizacijeProjekta.getText());
-//        if(pocetakRealizacijeProjekta.after(new Date())){
-//            JOptionPane.showMessageDialog(null, "Datum početka realizacije projekta ne sme biti u buducnosti.", "Greska pri izmeni projekta!", JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
         izmenjeniProjekat.setPocetakRealizacije(sdf.parse(txtPocetakRealizacijeProjekta.getText()));
 
         izmenjeniProjekat.setRukovodilac((Zaposleni) cmbRukovodilacProjekta.getSelectedItem());

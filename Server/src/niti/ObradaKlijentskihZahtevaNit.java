@@ -31,13 +31,6 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
     Socket s;
     ServerskaNit sn;
     Administrator administrator;
-    LinkedList<Administrator> ulogovani;
-
-//    public ObradaKlijentskihZahtevaNit(Socket s, ServerskaNit sn, LinkedList<Administrator> ulogovani) {
-//        this.s = s;
-//        this.sn = sn;
-//        this.ulogovani = ulogovani;
-//    }
     
     public ObradaKlijentskihZahtevaNit(Socket s, ServerskaNit sn) {
         this.s = s;
@@ -193,14 +186,6 @@ public class ObradaKlijentskihZahtevaNit extends Thread{
                         throw new Exception("Sistem ne može da obriše projekat.");
                     }
                     break;
-//                case Operacije.DODAJ_ANGAZOVANJE:
-//                    Angazovanje angazovanje = (Angazovanje) kz.getParametar();
-//                    ServerKontroler.getInstanca().dodajAngazovanje(angazovanje);
-//                    break;
-//                case Operacije.VRATI_ANGAZOVANJA:
-//                    LinkedList<Angazovanje> listaAngazovanja = ServerKontroler.getInstanca().vratiAngazovanja();
-//                    so.setOdgovor(listaAngazovanja);
-//                    break;
                 default:
                     throw new AssertionError();
             }
